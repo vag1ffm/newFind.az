@@ -1,0 +1,170 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'homepage/css/style-new.css' %}">
+    <link rel="icon" href="{% static 'homepage/img/icon-of-site.webp' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3cb2bc27fe.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+</head>
+<body class="voyti-body">
+<header class="voyti-header">
+    <div class="logo">
+        <div class="logo-icon"></div>
+        <div class="logo-text"><a href="{% url 'home' %}">Find.az</a></div>
+    </div>
+</header>
+<main class="main-of-voyti">
+    <div class="voyti-content">
+        <div class="main-voyti-content">
+            <div class="sign-up">
+
+                <h4>Зарегистрироваться</h4>
+
+                <form method="POST" class="sign-up-label">
+
+                    {% csrf_token %}
+
+                    <div>{{ form.non_field_errors }}</div>
+
+                    <div class="log-in-contaner">
+                        <i class="fas fa-user"></i>
+                        {{ form.first_name }}
+                        <div  id="error-of-username">{{ form.first_name.errors }}</div>
+<!--                        <input type="text" placeholder="Your Full Name">-->
+                    </div>
+
+                    <div class="log-in-contaner">
+                        <i class="fas fa-user"></i>
+                        {{ form.last_name }}
+                        <div  id="error-of-username">{{ form.last_name.errors }}</div>
+<!--                        <input type="text" placeholder="Your Full Name">-->
+                    </div>
+
+                    <div class="log-in-contaner">
+                        <i class="fas fa-at"></i>
+                        {{ form.email }}
+                        <div id="error-of-email">{{ form.email.errors }}</div>
+<!--                        <input type="email" placeholder="Log in">-->
+                    </div>
+
+                    <div class="password-contaner">
+                        <i class="fas fa-unlock"></i>
+                        {{ form.password1 }}
+                        <div id="error-of-password1">{{ form.password1.errors }}</div>
+<!--                        <input type="password" placeholder="Password">-->
+                    </div>
+
+                    <div class="password-contaner">
+                        <i class="fas fa-unlock"></i>
+                        {{ form.password2 }}
+                        <div id="error-of-password2">{{ form.password2.errors }}</div>
+<!--                        <input type="password" placeholder="Password">-->
+                    </div>
+
+                    <div class="checkbox-uslov">
+                        <input onclick="usloviye()" type="checkbox"><p><a href="">Согласен(a) с условием</a></p>
+                    </div>
+
+
+                    <input disabled class='zareq-button' type="submit" value="Войти">
+
+                    <p>Есть аккаунта? <a href="{% url 'login' %}">Войти</a><br>
+                    <a href="{% url 'register_seller' %}">Зарегистрироваться как продовец</a></p>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="voyti-footer">
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'homepage/js/script.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        // отслеживаем событие отправки формы
+        $('#id_email').focusout(function () {
+            // создаем AJAX-вызов
+            $.ajax({
+                data: $(this).serialize(), // получаяем данные формы
+                url: "{% url 'validate_username' %}",
+                // если успешно, то
+                success: function (response) {
+                    let email= document.getElementById('id_email')
+                    let a = document.getElementById('error-of-email')
+
+                    if (response.is_email === true && id_email.value.length) {
+                        $('#id_email').removeClass('is-valid').addClass('is-invalid');
+                        email.style.border = '2px red solid'
+                        $('#emailError').remove();
+                        $('#error-of-email').append('<div class="invalid-feedback d-block" id="emailError">This email is not available!</div>')
+                    }
+                    else {
+                        $('#id_username').removeClass('is-invalid').addClass('is-valid');
+                        $('#emailError').remove();
+
+
+                        if (email.value.length===0) {
+                            a.innerHTML = ' '
+                        }else if (email.value.indexOf('@')===-1) {
+                            a.innerHTML = '<div class="invalid-feedback d-block" id="usernameError">This email is no email!</div>'
+                            email.style.border = '2px red solid'
+                        } else {
+                            a.innerHTML = ' '
+                            email.style.border ='2px green solid'
+                        }
+                    }
+
+                },
+                // если ошибка, то
+                error: function (response) {
+                    // предупредим об ошибке
+                    console.log(response.responseJSON.errors)
+                }
+            });
+            return false;
+        });
+    })
+    $(document).ready(function () {
+        $('#id_password1').focusout(function () {
+            let password = document.querySelector('#id_password1')
+            let a = document.getElementById('error-of-password1')
+            if (password && password.value.length < 8) {
+                a.innerHTML = '<div class="invalid-feedback d-block" id="usernameError">This password is so short!</div>'
+                password.style.border = '2px red solid'
+            } else {
+                a.innerHTML = ''
+                password.style.border ='2px green solid'
+            }
+            return false;
+        });
+    })
+    $(document).ready(function () {
+        $('#id_password2').focusout(function () {
+            let password2 = document.querySelector('#id_password2')
+            let password1 = document.querySelector('#id_password1')
+            let a = document.getElementById('error-of-password2')
+            if (password1.value && password2.value && password1.value !== password2.value) {
+                a.innerHTML = '<div class="invalid-feedback d-block" id="usernameError">This password is no same!</div>'
+                password2.style.border = '2px red solid'
+            } else if (password1.value=== '' || password2.value==='') {
+
+            } else {
+                a.innerHTML = ''
+                password2.style.border ='2px green solid'
+            }
+            return false;
+        });
+    })
+
+</script>
+
+</body>
+</html>

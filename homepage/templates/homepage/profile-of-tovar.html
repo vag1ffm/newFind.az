@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="img/icon-of-site.webp">
+    <link rel="stylesheet" type="text/css"  href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--		<link type="text/css" rel="stylesheet" href="css/lightslider.css" />-->
+    <!--	<link rel="manifest" href="manifest.json">-->
+    <title>Интернет магазин Vaga</title>
+</head>
+<body>
+    <header class="desktop-header">
+        <div class="pervaya-stupen">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text"><a href="index.html">Find.az</a></div>
+            </div>
+            <div class="poiskovoy-div">
+                <div class="katalog" onclick="movekatalog()">
+                    <div class="katalog-icon"><i class="fa-solid fa-bars"></i></div>
+                    <div class="katalog-text">Каталог</div>
+                </div>
+                <div class="poiskovik">
+
+                        <input type="text" placeholder="Искать товары">
+                        <button>Найти</button>
+
+
+                </div>
+            </div>
+            <div class="knopochniy-div">
+                <div class="zakazi">
+                    <a href="">
+                        <div class="zakazi-icon"><i class="fa-solid fa-box"></i></div>
+                        <div class="zakazi-text">Заказы</div>
+                    </a>
+                </div>
+                <div class="izbrannoe">
+                    <a href="izbranniy.html">
+                        <div class="izbranoe-icon"><i class="fa-solid fa-heart"></i></div>
+                        <div class="izbranoe-text">Избранные</div>
+                    </a>
+                </div>
+                <div class="korzina">
+                    <a href="korzina.html">
+                        <div class="korzina-icon"><i class="fa-solid fa-basket-shopping"></i></div>
+                        <div class="korzina-text">Корзина</div>
+                    </a>
+                </div>
+                <!--				<div  class="voyti">-->
+                <!--					<a href="login.html">-->
+                <!--						<div class="voyti-knopka">-->
+                <!--							<div class="voyti-text">Войти</div>-->
+                <!--						</div>-->
+                <!--					</a>-->
+                <!--				</div>-->
+
+            </div>
+            <!--							<div  class="voyti">-->
+            <!--								<a href="login.html">-->
+            <!--									<div class="voyti-knopka">-->
+            <!--										<div class="voyti-text">Войти</div>-->
+            <!--									</div>-->
+            <!--								</a>-->
+            <!--							</div>-->
+
+            <div  class="logo-of-profile-in-mainpg">
+                <div class="img">
+
+                </div>
+                <div class="perexodi-iz-mainpg">
+                    <h4><a href="">vagamed2002</a></h4>
+                    <ul>
+                        <li><a href="">Профиль</a></li>
+                        <li><a href="">Настройки</a></li>
+                        <li><a href="">Добавить товар</a></li>
+                        <li><a href="">Выход</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="katalogi">
+            <div class="listi-kategori">
+                <ul>
+                    <li onmouseenter="showkatalog('electronika')">
+                        <div class="list-katalog-left ">
+                            <div class="list-katalog-left-icon"><i class="fas fa-mobile-alt"></i></div>
+                            <div class="list-katalog-left-text">Электроника</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list electronika show" >
+                            Электроника
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('komputeri')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-laptop"></i></div>
+                            <div class="list-katalog-left-text">Компьютеры</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list komputeri">
+                            Компьютеры
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('bittexnika')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-fire-burner"></i></div>
+                            <div class="list-katalog-left-text">Бытовая техника</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list bittexnika">
+                            Бытовая техника
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('odejda')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-shirt"></i></div>
+                            <div class="list-katalog-left-text">Одежда и обувь</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list odejda">
+                            Одежда и обувь
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('krasota')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-heart"></i></div>
+                            <div class="list-katalog-left-text">Красота и гигиена</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list krasota">
+                            Красота и гигиена
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('detskiye')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-children"></i></div>
+                            <div class="list-katalog-left-text">Детские товары</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list detskiye">
+                            Детские товары
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('dom')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-house-chimney"></i></div>
+                            <div class="list-katalog-left-text">Дом</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list dom">
+                            Дом
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('dacha')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-seedling"></i></div>
+                            <div class="list-katalog-left-text">Дача и сад</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list dacha">
+                            Дача и сад
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('stroitelstvo')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-paint-roller"></i></div>
+                            <div class="list-katalog-left-text">Строительство и ремонт</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list stroitelstvo">
+                            Строительство и ремонт
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('mebel')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-couch"></i></div>
+                            <div class="list-katalog-left-text">Мебель</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list mebel">
+                            Мебель
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('produkti')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-apple-whole"></i></div>
+                            <div class="list-katalog-left-text">Продукты питание</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list produkti">
+                            Продукты питание
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('apteka')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-staff-aesculapius"></i></div>
+                            <div class="list-katalog-left-text">Аптека</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list apteka">
+                            Аптека
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('zootovari')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-paw"></i></div>
+                            <div class="list-katalog-left-text">Зоотовары</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list zootovari">
+                            Зоотовары
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('bitximiya')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-vial"></i></div>
+                            <div class="list-katalog-left-text">Бытовая химия</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list bitximiya">
+                            Бытовая химия
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('sport')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-bicycle"></i></div>
+                            <div class="list-katalog-left-text">Спорт и отдах</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list sport">
+                            Спорт и отдах
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('avto')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-car"></i></div>
+                            <div class="list-katalog-left-text">Авто</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list avto">
+                            Авто
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('hobbi')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-user-ninja"></i></div>
+                            <div class="list-katalog-left-text">Хобби и творчество</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list hobbi">
+                            Хобби и творчество
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('knigi')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-book"></i></div>
+                            <div class="list-katalog-left-text">Книги</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list knigi">
+                            Книги
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('shkola')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <div class="list-katalog-left-text">Для школы и офиса</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list shkola">
+                            Для школы и офиса
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('yuvelir')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-gem"></i></div>
+                            <div class="list-katalog-left-text">Ювелирные украшения</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list yuvelir">
+                            Ювелирные украшения
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('chveti')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-spa"></i></div>
+                            <div class="list-katalog-left-text">Цветы</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list chveti">
+                            Цветы
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('tovari')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon">81</div>
+                            <div class="list-katalog-left-text">Товары для взослых</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list tovari">
+                            Товары для взослых
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('chifrovoy')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-camera-retro"></i></div>
+                            <div class="list-katalog-left-text">Цифровые товары</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list chifrovoy">
+                            Цифровые товары
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('oborudovanoye')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-microphone"></i></div>
+                            <div class="list-katalog-left-text">Оборудование</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list oborudovanoye">
+                            Оборудование
+                        </div>
+                    </li>
+                    <li onmouseenter="showkatalog('skidki')">
+                        <div class="list-katalog-left">
+                            <div class="list-katalog-left-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                            <div class="list-katalog-left-text">Скидки и акции</div>
+                        </div>
+                        <div class="list-katalog-right">
+                            <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
+                        <div class="list-katalog-list skidki">
+                            Скидки и акции
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="infa-list-katalogax">
+
+            </div>
+        </div>
+        <div class="ftoraya-stupen">
+            <div class="mesopolojeniye">
+                <div class="mesopolojeniye-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="mesopolojeniye-qorod">Баку</div>
+            </div>
+            <div class="top-kateqorii">
+                <ul class="spisok-kateqoriy">
+                    <li><a href="">Дети</a></li>
+                    <li><a href="">Аптека</a></li>
+                    <li><a href="">Одежда</a></li>
+                    <li><a href="">Красота</a></li>
+                    <li><a href="">Электроника</a></li>
+                    <li><a href="">Бытовая техника</a></li>
+                    <li><a href="">Продукты</a></li>
+                    <li><a href="">Дом</a></li>
+                    <li><a href="">Цветы</a></li>
+                    <li><a href="">81</a></li>
+                </ul>
+            </div>
+            <div class="priqlasheniye">Продавайте с нами</div>
+        </div>
+    </header>
+    <header class="mobile-header">
+        <div class="mobile-petviy-stupen">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text"><a href="index.html">Find.az</a></div>
+            </div>
+            <div class="right-size-of-mhead">
+                <div class="poiskovoy-icon">
+                    <i class="fas fa-search" onclick="showpoiskovik()"></i>
+                </div>
+                <div class="izbrannoe">
+                    <a href="izbranniy.html">
+                        <div class="izbranoe-icon"><i class="fa-solid fa-heart"></i></div>
+                        <div class="izbranoe-text">Избранные</div>
+                    </a>
+                </div>
+                <div class="korzina">
+                    <a href="korzina.html">
+                        <div class="korzina-icon"><i class="fa-solid fa-basket-shopping"></i></div>
+                        <div class="korzina-text">Корзина</div>
+                    </a>
+                </div>
+                <div class="katalog" style="display:block;">
+                    <div class="katalog-icon"  onclick="showleftbar()"><i class="fa-solid fa-bars"></i></div>
+                </div>
+                <div class="close-bar katalog" onclick="showleftbar()"  style="display: none">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-vtoraya-stupen">
+            <div class="left-bar">
+                <div class="left-bar-content">
+                    <!--					<div class="voyti" >-->
+                    <!--						<a href="login.html">-->
+                    <!--						<div class="voyti-knopka">-->
+                    <!--							<div class="voyti-text">Войти/Зарегистрироваться</div>-->
+                    <!--						</div>-->
+                    <!--						</a>-->
+                    <!--					</div>-->
+                    <div class="mobile-logo-in-mainpg">
+                        <div class="logo"><img src="" alt="logo"></div>
+                        <div class="nikname"><h4>vagamed</h4></div>
+                    </div>
+                    <ul>
+                        <li><a href="">Профиль</a></li>
+                        <li><a href="">Настройки</a></li>
+                        <li><a href="">Выход</a></li>
+                        <li><a href="">Добавить товар</a></li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="mobile-katalog-tovarov" onclick="mobileshowkatalog()">
+                <p>Каталог товаров</p> <i class="fa-solid fa-angle-down"></i>
+            </div>
+            <div class="mobile-poiskovik">
+                <div class="poiskovik">
+                    <form>
+                        <input type="text" placeholder="Искать товары">
+                        <button type="button">Найти</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-list-katalog-tovarov showmlk">
+            <ul style="left: 0">
+                <li onclick="showpraviykatalog('mobil-electronika')">
+                    <div class="mobile-list-katalog-left ">
+                        <div class="mobile-list-katalog-left-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <div class="mobile-list-katalog-left-text">Электроника</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+                <li onclick="showpraviykatalog('mobil-komputeri')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-laptop"></i></div>
+                        <div class="mobile-list-katalog-left-text">Компьютеры</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+                <li onclick="showpraviykatalog('mobil-bittexnika')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-fire-burner"></i></div>
+                        <div class="mobile-list-katalog-left-text">Бытовая техника</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+                <li onclick="showpraviykatalog('mobil-odejda')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-shirt"></i></div>
+                        <div class="mobile-list-katalog-left-text">Одежда и обувь</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+                <li onclick="showpraviykatalog('mobil-krasota')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-heart"></i></div>
+                        <div class="mobile-list-katalog-left-text">Красота и гигиена</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+                <li onclick="showpraviykatalog('mobil-detskiye')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-children"></i></div>
+                        <div class="mobile-list-katalog-left-text">Детские товары</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+                <li onclick="showpraviykatalog('mobil-dom')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-house-chimney"></i></div>
+                        <div class="mobile-list-katalog-left-text">Дом</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+                <li onclick="showpraviykatalog('mobil-dacha')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-seedling"></i></div>
+                        <div class="mobile-list-katalog-left-text">Дача и сад</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+
+                </li>
+                <li onclick="showpraviykatalog('mobil-stroitelstvo')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-paint-roller"></i></div>
+                        <div class="mobile-list-katalog-left-text">Строительство и ремонт</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+
+                </li>
+                <li onclick="showpraviykatalog('mobil-mebel')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-couch"></i></div>
+                        <div class="mobile-list-katalog-left-text">Мебель</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+                <li onclick="showpraviykatalog('mobil-produkti')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-apple-whole"></i></div>
+                        <div class="mobile-list-katalog-left-text">Продукты питание</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+
+                </li>
+                <li onclick="showpraviykatalog('mobil-apteka')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-staff-aesculapius"></i></div>
+                        <div class="mobile-list-katalog-left-text">Аптека</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+
+                </li>
+                <li onclick="showpraviykatalog('mobil-zootovari')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-paw"></i></div>
+                        <div class="mobile-list-katalog-left-text">Зоотовары</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+                <li onclick="showpraviykatalog('mobil-bitximiya')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-vial"></i></div>
+                        <div class="mobile-list-katalog-left-text">Бытовая химия</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+                <li onclick="showpraviykatalog('mobil-sport')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-bicycle"></i></div>
+                        <div class="mobile-list-katalog-left-text">Спорт и отдах</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+
+                </li>
+                <li onclick="showpraviykatalog('mobil-avto')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-car"></i></div>
+                        <div class="mobile-list-katalog-left-text">Авто</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+                <li onclick="showpraviykatalog('mobil-hobbi')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-user-ninja"></i></div>
+                        <div class="mobile-list-katalog-left-text">Хобби и творчество</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+
+                </li>
+                <li onclick="showpraviykatalog('mobil-knigi')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-book"></i></div>
+                        <div class="mobile-list-katalog-left-text">Книги</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+                <li onclick="showpraviykatalog('mobil-shkola')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <div class="mobile-list-katalog-left-text">Для школы и офиса</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+                <li onclick="showpraviykatalog('mobil-yuvelir')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-gem"></i></div>
+                        <div class="mobile-list-katalog-left-text">Ювелирные украшения</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+                <li onclick="showpraviykatalog('mobil-chveti')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-spa"></i></div>
+                        <div class="mobile-list-katalog-left-text">Цветы</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+                <li onclick="showpraviykatalog('mobil-tovari')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon">81</div>
+                        <div class="mobile-list-katalog-left-text">Товары для взослых</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+
+                </li>
+                <li onclick="showpraviykatalog('mobil-chifrovoy')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-camera-retro"></i></div>
+                        <div class="mobile-list-katalog-left-text">Цифровые товары</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+
+                </li>
+                <li onclick="showpraviykatalog('mobil-oborudovanoye')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-microphone"></i></div>
+                        <div class="mobile-list-katalog-left-text">Оборудование</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+
+                </li>
+                <li onclick="showpraviykatalog('mobil-skidki')">
+                    <div class="mobile-list-katalog-left">
+                        <div class="mobile-list-katalog-left-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                        <div class="mobile-list-katalog-left-text">Скидки и акции</div>
+                    </div>
+                    <div class="mobile-list-katalog-right">
+                        <div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                </li>
+            </ul>
+            <div class="praviy-katalog mobil-electronika">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-electronika')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Электроника</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-komputeri">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-komputeri')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Компьютеры</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-bittexnika">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-bittexnika')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Бытовая техника</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-odejda">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-odejda')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Одежда и обувь</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-krasota">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-krasota')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Красота и гигиена</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-detskiye">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-detskiye')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Детские товары</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-dom">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-dom')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Дом</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-dacha">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-dacha')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Дача и сад</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-stroitelstvo">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-stroitelstvo')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Строительство и ремонт</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-mebel">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-mebel')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Мебель</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-produkti">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-produkti')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Продукты питание</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-apteka">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-apteka')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Аптека</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-zootovari">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-zootovari')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Зоотовары</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-bitximiya">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-bitximiya')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Бытовая химия</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-sport">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-sport')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Спорт и отдах</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-avto">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-avto')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Авто</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-hobbi">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-hobbi')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Хобби и творчество</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-knigi">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-knigi')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Книги</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-shkola">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-shkola')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Для школы и офиса</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-yuvelir">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-yuvelir')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Ювелирные украшения</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-chveti">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-chveti')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Цветы</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-tovari">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-tovari')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Товары для взослых</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-chifrovoy">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-chifrovoy')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Цифровые товары</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-oborudovanoye">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-oborudovanoye')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Оборудование</h3>
+                </div>
+            </div>
+            <div class="praviy-katalog mobil-skidki">
+                <div class="mobil-list-kataloga">
+                    <div class="nazad" onclick="backtokatalog('mobil-skidki')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+                    <h3>Скидки и акции</h3>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <main class="main-of-tovar">
+        <div class="profile-of-tovar">
+            <div class="tovar-nazvaniye-tovara">
+                <h1>13.3" Ноутбук Apple MacBook Air 13 Late 2020 (2560x1600, Apple M1 3.2 ГГц, RAM 8 ГБ, SSD 256 ГБ, Apple graphics 7-core), MGN93LL/A, серебристый</h1>
+            </div>
+            <div class="tovar-ochenka">
+                <div class="rating">4.8</div>
+                <div class="otzivi">450 отзывов</div>
+            </div>
+            <div class="tovar-first-row">
+                <div class="main-information">
+                    <div class="photo-infa">
+                        <div class="tovar-photos">
+                            <div class="tovari-left-photos">
+                                <div class="photo tovar-photo-change"><img src="//avatars.mds.yandex.net/get-mpic/5235334/img_id8847419463258322949.jpeg/orig"></div>
+                                <div class="photo tovar-photo-change"><img src="//avatars.mds.yandex.net/get-mpic/5281727/img_id2096692238450946022.jpeg/orig" alt=""></div>
+                                <div class="photo tovar-photo-change"><img src="//avatars.mds.yandex.net/get-mpic/5278457/img_id7710717354687966480.jpeg/orig" alt=""></div>
+                                <div class="photo tovar-photo-change"><img src="//avatars.mds.yandex.net/get-mpic/5235334/img_id4518378085320161187.jpeg/orig" alt=""></div>
+                            </div>
+                            <div class="tovar-right-photo">
+                                <div class="main-photo"><img src="//avatars.mds.yandex.net/get-mpic/5235334/img_id8847419463258322949.jpeg/orig" alt=""></div>
+                            </div>
+                        </div>
+                        <div class="tovar-infa">
+                            <div class="korotko-o-tovare">
+                                <h4>Коротко о товаре</h4>
+                                <ul>
+                                    <li><div>Экран</div> <div class="ekran">13.3" (2560x1600) IPS</div></li>
+                                    <li><div>Процессор</div> <div class="prochessor">Apple M1 (8x3.20 ГГц)</div></li>
+                                    <li><div>Память</div> <div class="pamyat">	RAM 8 ГБ, SSD 256 ГБ</div></li>
+                                    <li><div>Видеокарта</div> <div class="videocart">встроенная, Apple graphics 7-core</div></li>
+                                    <li><div>Время работы от аккумулятора</div> <div class="vremya-ravot">18</div></li>
+                                    <li><div>Операционная система</div> <div class="operach-sistema">macOS</div></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kharakteristika">
+                        Коротко о товаре
+                        Экран
+                        13.3" (2560x1600) IPS
+                        Процессор
+                        Apple M1 (8x3.20 ГГц)
+                        Память
+                        RAM 8 ГБ, SSD 256 ГБ
+                        Видеокарта
+                        встроенная, Apple graphics 7-core
+                        Время работы от аккумулятора
+                        18
+                        Операционная система
+                        macOS
+                    </div>
+                </div>
+
+
+                <div class="mesta-prodaji">
+                    <div class="mesto-prodaji-infa">
+                        <div class="skidka"><div class="skidka-chena">129 900</div> <div class="prochent-skidki">-18%</div></div>
+                        <div class="chena">107 000</div>
+                        <div class="adress">парк им. Гусейна Джавида</div>
+                        <div class="karta"><a href="">на карте</a></div>
+                        <div class="button"> <button>Добавить в корзину</button></div>
+                        <div class="maqazin-prodovcha-infa">
+                            <div class="name"><a href="">Pro-store</a></div>
+                            <div class="rating-and-otziv">
+                                <div class="rating"><i class="fas fa-star"></i>4.9 /</div>
+                                <div class="otzivi">2862отзыва</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mesto-prodaji-infa">
+                        <div class="skidka"><div class="skidka-chena">129 900</div> <div class="prochent-skidki">-18%</div></div>
+                        <div class="chena">107 000</div>
+                        <div class="adress">парк им. Гусейна Джавида</div>
+                        <div class="karta"><a href="">на карте</a></div>
+                        <div class="button"> <button>Добавить в корзину</button></div>
+                        <div class="maqazin-prodovcha-infa">
+                            <div class="name"><a href="">Pro-store</a></div>
+                            <div class="rating-and-otziv">
+                                <div class="rating"><i class="fas fa-star"></i>4.9 /</div>
+                                <div class="otzivi">2862отзыва</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mesto-prodaji-infa">
+                        <div class="skidka"><div class="skidka-chena">129 900</div> <div class="prochent-skidki">-18%</div></div>
+                        <div class="chena">107 000</div>
+                        <div class="adress">парк им. Гусейна Джавида</div>
+                        <div class="karta"><a href="">на карте</a></div>
+                        <div class="button"> <button>Добавить в корзину</button></div>
+                        <div class="maqazin-prodovcha-infa">
+                            <div class="name"><a href="">Pro-store</a></div>
+                            <div class="rating-and-otziv">
+                                <div class="rating"><i class="fas fa-star"></i>4.9 /</div>
+                                <div class="otzivi">2862отзыва</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mesto-prodaji-infa">
+                        <div class="skidka"><div class="skidka-chena">129 900</div> <div class="prochent-skidki">-18%</div></div>
+                        <div class="chena">107 000</div>
+                        <div class="adress">парк им. Гусейна Джавида</div>
+                        <div class="karta"><a href="">на карте</a></div>
+                        <div class="button"> <button>Добавить в корзину</button></div>
+                        <div class="maqazin-prodovcha-infa">
+                            <div class="name"><a href="">Pro-store</a></div>
+                            <div class="rating-and-otziv">
+                                <div class="rating"><i class="fas fa-star"></i>4.9 /</div>
+                                <div class="otzivi">2862отзыва</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rating">
+                    <div class="star-widget">
+                        <input type="radio" name="rate" id="rate-5">
+                        <label for="rate-5">5</label>
+                        <input type="radio" name="rate" id="rate-4">
+                        <label for="rate-4">4</label>
+                        <input type="radio" name="rate" id="rate-3">
+                        <label for="rate-3">3</label>
+                        <input type="radio" name="rate" id="rate-2">
+                        <label for="rate-2">2</label>
+                        <input type="radio" name="rate" id="rate-1">
+                        <label for="rate-1" >1</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        let stars = document.querySelectorAll('.rating label')
+        stars.forEach(star => {
+            star.addEventListener('click', (event)=> {
+                let id = 1
+                let rating = event.target.innerText
+
+
+            })
+        })
+    </script>
+
+
+
+    <script src="https://kit.fontawesome.com/3cb2bc27fe.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+{% extends "homepage/layout.html" %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+    <main class="izbranniy-main">
+        <div class="izbranniy-content">
+            <h2>Избранные товары</h2>
+            <div class="tovari">
+                {% if tovari %}
+                    {% for tovar in tovari %}
+                    <div class="qlavniy-tovar">
+						<div class="izbranniy-tovar">
+                            {% if request.user.is_authenticated %}
+                                <label for="{{ tovar.pk }}" class="{% if tovar in tovari %}red{% endif %}">
+                                    <i class="fa-solid fa-heart {{ tovar.pk }}"></i>
+                                </label>
+                                <input name="favorite" style="display: none" class='heart' type="checkbox" id="{{ tovar.pk }}">
+                            {% else %}
+                                <i class="fa-solid fa-heart"></i>
+                            {% endif %}
+                        </div>
+						<a href="{{ tovar.get_absolute_url }}">
+							<div class="qlavniy-tovar-img"><img src="{{ tovar.photo_main.url }}" alt=""></div>
+							<span class="tovar-info">
+                                <div class="chena">{{ tovar.price }} ₼</div>
+                                <div class="reyting">
+                                    <div class="zvezda">звезды</div>
+                                    <div class="chislo-ochenik">{{ tovar.rating }}</div>
+                                </div>
+                                <div class="tovar-name">{{ tovar.title|truncatewords:10 }}</div>
+                                <div class="rekomenduyemost">86% рекомендуют</div>
+						    </span>
+						</a>
+						{% if tovar in cart_tovari %}
+						    <div class="button"><input type="button" value="В корзине" style="background-color: #e1b70c"></div>
+                        {% else %}
+						    <div class="button"><input type="button" value="Добавить в корзину"></div>
+                        {% endif %}
+					</div>
+                    {% endfor %}
+                {% else %}
+                    Избранных нет :(
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+{% endblock content %}
+
+
+{% block js_crud_fav %}
+    a.parentElement.parentElement.style.opacity = 0
+    setTimeout(()=>{
+        a.parentElement.parentElement.remove()
+    }, 300)
+{% endblock js_crud_fav %}
+

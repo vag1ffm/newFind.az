@@ -1,0 +1,549 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+i {
+    font-size: 20px;
+}
+a {
+    text-decoration: none;
+    color: #000;
+}
+li {
+    list-style: none;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: #000;
+    color: #FFF;
+    max-width: 1440px;
+}
+
+.pervaya-stupen {
+    display: flex;
+    width: 100%;
+    max-width: 1440px;
+    align-items: center;
+    justify-content: center;
+    height: 72px;
+    z-index: 7;
+    background-color: #000;
+    color: #FFF;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 167px;
+    height: 72px;
+    margin: 0 32px 0 0;
+}
+
+.logo-ikon {
+    font-size: 32px;
+}
+
+.logo-text {
+    font-size: 32px;
+    font-weight: 700;
+    color: #03ce97;
+}
+
+.katalog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    background-color: #03ce97;
+    padding: 12px 16px 12px 14px;
+    border-radius: 5px;
+    margin: 0 12px 0 0;
+    cursor: pointer;
+    transition: all 0.3s  ease;
+}
+
+.katalog:active {
+    background-color: #e1b70c;
+    transform: scale(0.95);
+
+
+}
+
+.katalog-text {
+    font-size: 16px;
+    padding: 12px;
+    font-weight: 700;
+    color: white;
+}
+
+.katalogi {
+    display: flex;
+    position:absolute;
+    top: -100%;
+    z-index: 5;
+    background-color: #fff;
+    transition: 0.5s;
+    background-clip: padding-box;
+}
+.listi-kategori {
+    padding: 20px 10px 20px 10px;
+    border-right: 1px #d9d9d9 solid;
+
+}
+
+.listi-kategori li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8px 0 11px ;
+    height: 36px;
+    width: 245px;
+    cursor: pointer;
+    border-radius: 10px ;
+    transition: all 0.2s linear;
+}
+/*.listi-kategori li:hover {*/
+/*	background-color: #f3f3f3;*/
+/*}*/
+.list-katalog-left {
+    display: flex;
+    align-items: center;
+}
+
+
+.list-katalog-left-icon {
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+.list-katalog-left-icon i {
+    width: 25px;
+}
+.list-katalog-left-text {
+    font-size: 14px;
+}
+
+.infa-list-katalogax {
+    width: 1173px;
+
+}
+
+.list-katalog-list {
+    position: absolute;
+    top: 20px;
+    left: 266px;
+    width: 1173px;
+    height: 100px;
+    display: none;
+    margin:  0 20px;
+}
+
+.list-katalog-list {
+    font-size: 35px;
+    font-weight: 700;
+}
+
+.hide {
+    display: none;
+}
+.show {
+    display: block;
+}
+/*.listi-kategori li:hover .list-katalog-list {*/
+/*	display: block;*/
+/*}*/
+
+.poiskovik label{
+    display: flex;
+    margin: 0 32px 0 0;
+}
+
+.poiskovik input:first-child {
+    width: 588px;
+    height: 44px;
+    border: 4px #03ce97 solid;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.poiskovik input:first-child[type='text'] {
+    padding: 0 36px 0 12px;
+}
+
+.poiskovik input:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    background-color: #03ce97;
+    border: none;
+    font-weight: 700;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: #FFF;
+}
+
+.zakazi, .izbrannoe, .korzina {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 72px;
+    margin: 0 10px;
+}
+
+.zakazi-text, .izbranoe-text, .korzina-text{
+    font-size: 12px;
+    padding-top: 4px;
+
+}
+
+.voyti {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    height: 44px;
+    background-color: #03ce97;
+    border-radius: 10px;
+    margin-left: 30px;
+}
+
+.voyti-text {
+    color: #FFF;
+    font-size: 16px;
+}
+
+.ftoraya-stupen {
+    display: flex;
+    align-items: center;
+    height: 48px;
+}
+
+.mesopolojeniye {
+    display: flex;
+    align-items: center;
+    width: 198px;
+}
+.mesopolojeniye-icon i{
+    font-size: 24px;
+}
+.mesopolojeniye-qorod {
+    font-size: 14px;
+    margin-left: 10px;
+}
+.top-kateqorii {
+
+}
+.spisok-kateqoriy {
+    display: flex;
+}
+.spisok-kateqoriy li {
+    list-style: none;
+    padding: 0 12px;
+}
+.spisok-kateqoriy a {
+    text-decoration: none;
+    transition: 0.2s;
+    font-size: 14px;
+    color: #FFF;
+}
+.spisok-kateqoriy li a:hover {
+    color: red;
+}
+.translacii {
+    font-size: 14px;
+    padding: 0 10px 0 80px;
+    margin: 0 10px;
+}
+.priqlasheniye {
+    font-size: 14px;
+}
+
+.slayder {
+    height: 300px;
+    width: 1440px;
+    background-color: #ffd4fd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    background-image: url("3.jpg") ;
+    background-position: center ;
+    color: #FFF;
+
+}
+.content {
+    width: 1440px;
+    display: flex;
+    /* background-color: initial; */
+    /* background-color: #000; */
+}
+main {
+    width: 1440px;
+    height: 1000px;
+}
+
+.razdel-razdela {
+    margin-top: 10px;
+    border-radius: 10px;
+
+}
+.razdel-razdela h2 {
+    font-size: 28px;
+    padding: 20px 40px 10px 0px;
+
+}
+.razdel-razdel-tovari {
+    display: flex;
+    background-color: #000000;
+    border-radius: 10px;
+    margin: 20px 0;
+    width: 1115px;
+}
+.razdel-razdel-tovar a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    align-content: center;
+    width: 171px;
+    height: 171px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: 10px 7px;
+}
+.razdel-razdel-tovar a:hover{
+    color: red;
+}
+.img img{
+    width: 55%;
+    padding-top: 10px;
+}
+
+.razdel-razdel-name {
+    font-size: 16px;
+
+}
+.name-razdela-tovarov {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.ryad-tovarov {
+    display: flex;
+    align-items: center;
+    width: 1120px;
+    height: 500px;
+
+    overflow: hidden;
+    justify-content: space-between;
+
+}
+
+.p-slayder-tovarov, .v-slayder-tovarov {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #03ce97;
+    border: 1px rgba(225,225,225,1) solid;
+    /* box-shadow: 1px 1px #000; */
+    z-index: 5;
+}
+
+.p-slayder-tovarov:active {
+    transform: scale(0.95);
+}
+
+.v-slayder-tovarov:active {
+    transform: scale(0.95);
+}
+
+.slayd-tovarov {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    transition: all 0.3s ease;
+    width: 1110px;
+    overflow: hidden;
+
+}
+.slayd {
+    display: flex;
+    position: relative;
+    left: 20px;
+    transition: .5s;
+
+}
+.qlavniy-tovar a{
+    width: 187px;
+    height: 478px;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 10px;
+    border-radius: 10px;
+    transition: 300ms;
+}
+.qlavniy-tovar a:hover {
+    transform: scale(1.02);
+
+}
+
+.izbranniy-tovar {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 5px;
+}
+.izbranniy-tovar i {
+    width: 16px;
+    transition: all .3s linear;
+}
+.izbranniy-tovar i:hover {
+    color: red;
+}
+.qlavniy-tovar-img img{
+    width: 183px;
+    height: 219px;
+    background-color: grey;
+    border-radius: 5px;
+    margin: 5px 0px;
+}
+
+.chena {
+    font-weight: 700;
+    font-size: 18px;
+    margin: 5px 0;
+}
+.reyting {
+    display: flex;
+    align-items: flex-end;
+    margin: 5px 0;
+}
+.zvezda {
+
+}
+.chislo-ochenik {
+    font-size: 14px;
+    color: #878787;
+}
+.tovar-name {
+    font-size: 14px;
+    color: #212121;
+    margin: 5px 0;
+    height: 55px;
+    overflow: hidden;
+}
+.rekomenduyemost {
+    color: #2aad2e;
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.button button {
+    width: 183px;
+    background-color: #000000;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    border: none;
+    border-radius: 5px;
+    margin: 20px 0  5px 0;
+    color: #FFF;
+}
+.button button:hover {
+    background-color: #e1b70c;
+}
+
+.reklama {
+    width: 280px;
+    height: 320px;
+    background-color: red;
+    margin: 95px 0 0 5px;
+    font-size: 45px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.reklama:first-child {
+    background-image: url("1.jpg");
+    background-position: center ;
+}
+
+.reklama:last-child {
+    background-image: url("2.jpg");
+    background-position: center ;
+}
+footer {
+    height: 500px;
+    background-color: #000000;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.footer-content {
+    display: flex;
+
+}
+.o-nas {
+    width: 400px;
+}
+.for-salers {
+    margin-left: 300px;
+}
+.for-salers li {
+    padding: 5px 0;
+}
+.for-salers li:first-child {
+    margin-top: 20px;
+}
+.for-salers a{
+    color: #FFF;
+}
+
+.for-salers a:hover {
+    color: red;
+}
+
+
+
+
+
+@keyframes show-katalog {
+    0% {
+        top: -70px;
+    }
+    100% {
+        top: 70px;
+    }
+}
+
+@keyframes hide-katalog {
+    0% {
+
+    }
+    100% {
+
+    }
+}

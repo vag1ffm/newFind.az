@@ -1,0 +1,14 @@
+{% load i18n %}{% autoescape off %}
+{% blocktranslate %}Вы получаете это письмо чобы подтвердить свой адрес электронной почты на сайте {{ site_name }}.{% endblocktranslate %}
+
+Здравствуйте {{ user.get_username }},
+{% translate "Чтобы подтвердить свой адрес электронной почты перейдите по ссылке ниже: " %}
+{% block reset_link %}
+http://{{ domain }}{% url 'verify_email' uidb64=uid token=token %}
+{% endblock %}
+
+{% translate "Спасибо что зарегистрировались на нашем сайте!" %}
+
+{% blocktranslate %}Команда FindAz{% endblocktranslate %}
+
+{% endautoescape %}

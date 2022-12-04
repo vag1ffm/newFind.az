@@ -1,0 +1,188 @@
+class IframeController {
+    constructor() {
+        this.iframe = document.querySelector('#uxfb_iframe');
+
+        this.scrollPageListener = this.scrollPageListener.bind(this);
+    }
+
+    getYaIdFromCookies() {
+        const cookie = document.cookie;
+        const uidIndex = cookie.indexOf('_ym_uid');
+        const lastDotsPosition = cookie.indexOf(';', uidIndex);
+        const cookieLength = cookie.length;
+        const lastPosition = lastDotsPosition === -1 ? cookieLength : lastDotsPosition;
+
+        return cookie.substring(uidIndex, lastPosition).replace('_ym_uid=', '');
+    }
+
+    setIframeStyle(style) {
+        this.iframe.setAttribute('style', style);
+    }
+
+    showWidgetIcon(width, height) {
+        this.iframe.setAttribute('width', width);
+        this.iframe.setAttribute('height', height);
+        this.iframe.className = '';
+        this.sendMessage('showWidgetIcon', {});
+        this.iframe.style.opacity = '1';
+    }
+
+    setIframeOpacity(opacity) {
+        this.iframe.style.opacity = opacity;
+    }
+
+    addClassToIframe(className) {
+        this.iframe.classList.add(className);
+    }
+
+    setIframeSize(width, height) {
+        if (width) {
+            this.iframe.style.width = width;
+
+            if (width === '100%') {
+                this.iframe.style.left = 0;
+                this.iframe.style.right = 0;
+                this.iframe.style.top = 0;
+                this.iframe.style.transform = null;
+            }
+        }
+
+        if (height) {
+            this.iframe.style.height = height;
+        }
+    }
+
+    setIframePosition(height) {
+        const clientHeight = window.innerHeight || document.documentElement.clientHeight;
+        const middle = parseInt((clientHeight - height) / 2);
+        const top = height >= clientHeight ? 0 : middle;
+        this.iframe.style.transform = null;
+        this.iframe.style.left = null;
+        this.iframe.style.right = null;
+        this.iframe.style.top = `${top}px`;
+    }
+
+    sendCurrentWinInfo() {
+        const clientHeight = window.innerHeight || document.documentElement.clientHeight;
+        const ymId = this.getYaIdFromCookies();
+
+        this.sendMessage('properties', {
+            some: 'some',
+            name: 'name',
+        });
+        this.sendMessage('info', {
+            url: document.location.href,
+            cookies: document.cookie,
+            ymId,
+            devicePixelRatio: window.devicePixelRatio,
+            scrollTop: document.documentElement.scrollTop,
+            scrollHeight: document.documentElement.scrollHeight,
+        });
+        this.sendMessage('clientHeight', clientHeight);
+
+        window.addEventListener(
+            'resize',
+            () => {
+                const clientHeight = window.innerHeight || document.documentElement.clientHeight;
+
+                this.sendMessage('clientHeight', clientHeight);
+            },
+            false,
+        );
+    }
+
+    initLocationListener() {
+        const {addEventListener, location} = window;
+        const oldLocation = {...location};
+
+        const listener = (event, oldLocation) => {
+            this.sendMessage('history', {
+                oldLocation: JSON.stringify(oldLocation),
+                location: JSON.stringify(location),
+            });
+        };
+
+        addEventListener('hashchange', event => listener(event, oldLocation), false);
+    }
+
+    scrollPageListener() {
+        this.sendMessage('scroll', {scrollTop: document.documentElement.scrollTop});
+    }
+
+    reachYaMetricaGoal(id, params) {
+        const ym = window.ym;
+        const yc = window[`yaCounter${id}`];
+
+        if (ym) {
+            ym(id, 'reachGoal', 'UX_FEEDBACK', params);
+        } else if (yc) {
+            yc.reachGoal('UX_FEEDBACK', params);
+        }
+    }
+
+    sendMessage(type, payload) {
+        this.iframe.contentWindow.postMessage({type: `uxfb/${type}`, payload}, '*');
+    }
+
+    start() {
+        window.addEventListener('message', e => {
+            const {type = '', payload} = e.data;
+            const [prefix, name] = type.split('/');
+
+            if (prefix !== 'uxfb') {
+                return;
+            }
+
+            switch (name) {
+                case 'style':
+                    this.setIframeStyle(payload);
+                    break;
+                case 'image':
+                    this.showWidgetIcon(payload.width, payload.height);
+                    break;
+                case 'opacity':
+                    this.setIframeOpacity(payload);
+                    break;
+                case 'class':
+                    this.addClassToIframe('uxs-slide-back');
+                    this.addClassToIframe(payload);
+                    break;
+                case 'size':
+                    const {width, height} = payload;
+
+                    this.setIframeSize(payload.width, payload.height);
+                    break;
+                case 'position':
+                    this.setIframePosition(payload.height);
+                    break;
+                case 'listener':
+                    this.sendCurrentWinInfo();
+                    break;
+                case 'locationListener':
+                    this.initLocationListener();
+                    break;
+                case 'addScroll':
+                    window.addEventListener('scroll', this.scrollPageListener);
+                    break;
+                case 'removeScroll':
+                    window.removeEventListener('scroll', this.scrollPageListener);
+                    break;
+                case 'reachYaMetricaGoal':
+                    const {id, params} = payload;
+
+                    this.reachYaMetricaGoal(id, params);
+                    break;
+                default:
+                    this.sendMessage(type, payload);
+                    break;
+            }
+        });
+    }
+}
+
+function start() {
+    const iframeContreller = new IframeController();
+    iframeContreller.start();
+}
+
+start();

@@ -1,0 +1,17 @@
+{% extends 'homepage/base.html' %}
+
+{% block title %}{{ tovar.title }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ tovar.title }}</h1>
+
+{% if tovar.photo %}
+    <img class="show" src="{{ tovar.photo.url }}" alt="">
+{% endif %}
+
+<p>{{ tovar.price }} manat</p>
+
+{{ tovar.content|linebreaks }}
+
+{% endblock %}

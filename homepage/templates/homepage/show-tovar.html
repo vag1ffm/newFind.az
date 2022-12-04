@@ -1,0 +1,234 @@
+{% extends 'homepage/layout.html' %}
+{% load static %}
+
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <main class="main-of-tovar">
+        <div class="tovar-nazvaniye-tovara">
+            <h1>{{ tovar.title }}</h1>
+        </div>
+        <div class="tovar-ochenka">
+            <div>Просмотрено {{ tovar.open_times }} раз</div>
+            <div class="rating">{{ tovar.rating }}</div>
+            <div class="otzivi">450 отзывов</div>
+        </div>
+        <div class="tovar-first-row">
+            <div class="main-information">
+                <div class="photo-infa">
+                    <div class="tovar-photos">
+                        <div class="tovari-left-photos">
+                            {% if tovar.photo_main %}
+                                <div class="photo tovar-photo-change"><img src="{{ tovar.photo_main.url }}">
+                                </div>{% endif %}
+                            {% if tovar.photo_1 %}
+                                <div class="photo tovar-photo-change"><img src="{{ tovar.photo_1.url }}">
+                                </div>{% endif %}
+                            {% if tovar.photo_2 %}
+                                <div class="photo tovar-photo-change"><img src="{{ tovar.photo_2.url }}">
+                                </div>{% endif %}
+                            {% if tovar.photo_3 %}
+                                <div class="photo tovar-photo-change"><img src="{{ tovar.photo_3.url }}">
+                                </div>{% endif %}
+                            {% if tovar.photo_4 %}
+                                <div class="photo tovar-photo-change"><img src="{{ tovar.photo_4.url }}">
+                                </div>{% endif %}
+                            {% if tovar.photo_5 %}
+                                <div class="photo tovar-photo-change"><img src="{{ tovar.photo_5.url }}">
+                                </div>{% endif %}
+                            {% if tovar.photo_6 %}
+                                <div class="photo tovar-photo-change"><img src="{{ tovar.photo_6.url }}">
+                                </div>{% endif %}
+                            {% if tovar.photo_7 %}
+                                <div class="photo tovar-photo-change"><img src="{{ tovar.photo_7.url }}">
+                                </div>{% endif %}
+                            {% if tovar.photo_8 %}
+                                <div class="photo tovar-photo-change"><img src="{{ tovar.photo_8.url }}">
+                                </div>{% endif %}
+                        </div>
+                        <div class="tovar-right-photo">
+                            <div class="main-photo"><img src="{{ tovar.photo_main.url }}" alt=""></div>
+                        </div>
+                    </div>
+                    <div class="tovar-infa">
+                        <div class="vid-tovarov">
+                            <h4>Цвета товара:</h4>
+                            <div class="photos">
+                                <div class="photo"></div>
+                                <div class="photo"><img
+                                        src="//avatars.mds.yandex.net/get-mpic/4365206/img_id4987343171402429230.png/orig"
+                                        alt=""></div>
+                                <div class="photo"></div>
+                            </div>
+                        </div>
+                        <div class="korotko-o-tovare">
+                            <h4>Коротко о товаре</h4>
+                            {#                    <ul>#}
+                            {#                        <li><div>Экран</div> <div class="ekran">13.3" (2560x1600) IPS</div></li>#}
+                            {#                        <li><div>Процессор</div> <div class="prochessor">Apple M1 (8x3.20 ГГц)</div></li>#}
+                            {#                        <li><div>Память</div> <div class="pamyat">	RAM 8 ГБ, SSD 256 ГБ</div></li>#}
+                            {#                        <li><div>Видеокарта</div> <div class="videocart">встроенная, Apple graphics 7-core</div></li>#}
+                            {#                        <li><div>Время работы от аккумулятора</div> <div class="vremya-ravot">18</div></li>#}
+                            {#                        <li><div>Операционная система</div> <div class="operach-sistema">macOS</div></li>#}
+                            {#                    </ul>#}
+                            {{ tovar.content }}
+                        </div>
+                    </div>
+                </div>
+                <div class="kharakteristika">
+                        Коротко о товаре
+                        Экран
+                        13.3" (2560x1600) IPS
+                        Процессор
+                        Apple M1 (8x3.20 ГГц)
+                        Память
+                        RAM 8 ГБ, SSD 256 ГБ
+                        Видеокарта
+                        встроенная, Apple graphics 7-core
+                        Время работы от аккумулятора
+                        18
+                        Операционная система
+                        macOS
+                </div>
+            </div>
+            <div class="mesta-prodaji">
+                <div class="mesto-prodaji-infa">
+
+                    <div class="skidka"><div class="skidka-chena">{{ tovar.price }} ⋔</div>
+{#                        <div class="prochent-skidki"></div>#}</div>
+                    <div class="chena">{{ tovar.price_with_skidka }} ⋔</div>
+                    <div class="adress">{{ store.address_type }}</div>
+                    <div class="karta"><a href="">на карте</a></div>
+                    <div class="button"> <button>Добавить в корзину</button></div>
+                    <div class="maqazin-prodovcha-infa">
+                        <div class="name"><a href="{{ store.get_absolute_url }}">{{ store.occupation }}</a></div>
+                        <div class="rating-and-otziv">
+                            <div class="rating"><i class="fas fa-star"></i>4.9 /</div>
+                            <div class="otzivi">2862отзыва</div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+            <div class="rating">
+                <div class="star-widget">
+                    <div>
+                        <input type="radio" name="rate" id="rate-5">
+                        <label for="rate-5">5</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="rate" id="rate-4">
+                        <label for="rate-4">4</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="rate" id="rate-3">
+                        <label for="rate-3">3</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="rate" id="rate-2">
+                        <label for="rate-2">2</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="rate" id="rate-1">
+                        <label for="rate-1" >1</label>
+                    </div>
+
+                </div>
+                <form>
+                    <div class="pluses">
+                        <p>Плюсы</p>
+                        <textarea class="pluses-text"></textarea>
+                    </div>
+                    <div class="minuses">
+                        <p>Минусы</p>
+                        <textarea class="minuses-text"></textarea>
+                    </div>
+                    <div class="comments">
+                        <p>Коммент</p>
+                        <textarea class="comments-text"></textarea>
+                    </div>
+                    <div class="otpravit-rating">
+                        <div class="button" onclick="SendComment()"><input type="button" value="Отправить"></div>
+                    </div>
+                </form>
+                <div class="conmets-of-users">
+                    {% for comment in comments %}
+                        <div class="comment">
+                            <div class="user-logo"></div>
+                            <div class="comment-comtent">
+                                <div class="user-infa">
+                                    <div class="name">{% if comment.user.first_name == '' and comment.user.last_name == '' %}Admin{% else %}{{ comment.user.first_name }} {{ comment.user.last_name }}{% endif %}</div>
+                                    <div class="stars">{{ comment.rating }}</div>
+                                </div>
+                                <div class="comment-data">
+                                    <div class="comment">
+                                        <div class="all-in-one">
+                                            <div class="pluses">
+                                                <h4>Плюсы</h4>
+                                                <p>{{ comment.plus }}</p>
+                                            </div>
+                                            <div class="minuses">
+                                                <h4>Минусы</h4>
+                                                <p>{{ comment.minus }}</p>
+                                            </div>
+                                            <div class="comment">
+                                                <h4>Коментарий</h4>
+                                                <p>{{ comment.comment }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="data-of-comment">{{ comment.time_cr }}</div>
+                                </div>
+                                <div class="likes"></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function SendComment() {
+            let rating;
+            let stars = document.querySelectorAll('.rating input')
+            for (let i of stars) {
+                if (i.checked === true) {
+                    rating = i.parentElement.querySelector('label').innerText
+                }
+            }
+            let id = {{ tovar.pk }};
+            let comment = document.querySelector('form .comments-text').value
+            let plus = document.querySelector('form .pluses-text').value
+            let minus = document.querySelector('form .minuses-text').value
+            console.log(comment)
+            console.log(plus)
+            console.log(minus)
+            $(document).ready(function () {
+                $.ajax({
+                    data: {
+                        "id": id,
+                        "rating": rating,
+                        "comment": comment,
+                        "plus": plus,
+                        "minus": minus
+                    },
+                    url: "{% url 'crud_rating_comments' %}",
+                    success: function (response) {
+                        console.log(response.added)
+                    },
+                    error: function (response) {
+                        console.log(response.responseJSON.errors)
+                    }
+                });
+                return false;
+            })
+
+        }
+
+
+    </script>
+{% endblock %}
+
+{% block js %}
+{% endblock js %}

@@ -1,0 +1,504 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'homepage/css/style-new.css' %}">
+    <link rel="icon" href="{% static 'homepage/img/icon-of-site.webp' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3cb2bc27fe.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+    <title>{% block title %}{{ title }}{% endblock title %}</title>
+</head>
+<body>
+    <header class="add-header">
+        <div class="add-left">
+            <div onclick="showAddBar()" class="add-bar"><i class="fas fa-bars"></i></div>
+            <div class="logo-market">FindAz</div>
+        </div>
+        <div class="add-right">
+            <div class="logo-profile"><div class="img"></div></div>
+        </div>
+    </header>
+    <div class="add-main">
+        <div class="add-left-bar" onmouseleave="hideAddBarm()" onmouseenter="showAddBarm()"  style="width: 55px;">
+            <ul>
+                <li><div class="left"><i class="fas fa-box"></i> <div style="display: none;">Товары</div></div><i style="display: none;" class="fas fa-angle-right"></i></li>
+                <li><div class="left"><i class="fab fa-opencart"></i> <div style="display: none;">Заказы</div></div><i style="display: none;" class="fas fa-angle-right"></i></li>
+                <li><div class="left"><i class="fas fa-angle-double-up"></i><div style="display: none;">Продвижение</div></div><i style="display: none;" class="fas fa-angle-right"></i></li>
+                <li><div class="left"><i class="far fa-list-alt"></i><div style="display: none;">Отчеты</div></div><i style="display: none;" class="fas fa-angle-right"></i></li>
+                <li><div class="left"><i class="fas fa-comment-dots"></i><div style="display: none;">Поддержка</div></div><i style="display: none;" class="fas fa-angle-right"></i></li>
+                <li><div class="left"><i class="fa-solid fa-gear"></i><div style="display: none;">Настройки</div></div><i style="display: none;" class="fas fa-angle-right"></i></li>
+            </ul>
+        </div>
+        <div class="adding-of-tovar">
+            <h2>Главное отоваре</h2>
+            <h3>Основная информация</h3>
+
+            <form class="add-form" action="{% url 'addtovar' %}" method="post" enctype="multipart/form-data">
+                <div class="first-form">
+
+                {% csrf_token %}
+                <label>Название товара</label>
+{#                <input class="name-of-tovar" placeholder="Название товара" type="text">#}
+                {{ form.title }}
+                {{ form.title.errors }}
+                <label>Штрихкод</label>
+{#                <input class="shtrixkod" type="text">#}
+                {{ form.barcode }}
+                {{ form.barcode.errors }}
+                <label>Бренд или производитель</label>
+{#                <input class="brend-tovara" type="text">#}
+                {{ form.brand }}
+                {{ form.brand.errors }}
+                <label>Описание товара, до 3 000 символов</label>
+{#                <textarea class="opisaniye-add-tovara"></textarea>#}
+                {{ form.content }}
+                {{ form.content.errors }}
+                <div class="tovar-dla-vzros-qalochka">
+                    <p>Товар для взрослых</p>
+{#                    <input class="tovar-dla-vzros" type="checkbox">#}
+                    {{ form.for_adult }}
+                    {{ form.for_adult.errors }}
+                </div>
+
+
+{#                <datalist id="katalogs">#}
+{#                    <option value="Электроника">#}
+{#                    <option value="Компьютеры">#}
+{#                    <option value="Бытовая техника">#}
+{#                    <option value="Одежда и обувь">#}
+{#                    <option value="Красота и гигиена">#}
+{#                    <option value="Детские товары">#}
+{#                    <option value="Дом">#}
+{#                    <option value="Дача и сад">#}
+{#                    <option value="Строительство и ремонт">#}
+{#                    <option value="Мебель">#}
+{#                    <option value="Продукты питание">#}
+{#                    <option value="Аптека">#}
+{#                    <option value="Зоотовары">#}
+{#                    <option value="Бытовая химия">#}
+{#                    <option value="Спорт и отдах">#}
+{#                    <option value="Авто">#}
+{#                    <option value="Хобби и творчество">#}
+{#                    <option value="Книги">#}
+{#                    <option value="Для школы и офиса">#}
+{#                    <option value="Ювелирные украшения">#}
+{#                    <option value="Цветы">#}
+{#                    <option value="Товары для взослых">#}
+{#                    <option value="Цифровые товары">#}
+{#                    <option value="Оборудование">#}
+{#                </datalist>#}
+                <hr>
+                <h2>Вес и габариты с упаковкой</h2>
+                <p>Заполните эти поля, чтобы мы могли правильно рассчитать условия хранения или доставки.</p>
+                <label>Товар занимает больше одного места</label>
+                <div class="ves-i-gabariti">
+                    <div>
+                        <label>Вес, кг</label>
+{#                        <input class="ves-tovara" type="text">#}
+                        {{ form.weight }}
+                        {{ form.weight.errors }}
+                    </div>
+                    <div>
+                        <label>Ширина, см</label>
+{#                        <input class="shirina-tovara" type="text">#}
+                        {{ form.width }}
+                        {{ form.width.errors }}
+                    </div>
+                    <div>
+                        <label>Высота, см</label>
+{#                        <input class="visota-tovara" type="text">#}
+                        {{ form.height }}
+                        {{ form.height.errors }}
+                    </div>
+                    <div>
+                        <label>Длина, см</label>
+{#                        <input class="dlina-tovara" type="text">#}
+                        {{ form.length }}
+                        {{ form.length.errors }}
+                    </div>
+                </div>
+                <hr>
+                <h2>Дополнительная информация</h2>
+                <p>Чем больше полей вы заполните, тем легче покупателям будет найти ваш товар.</p>
+                <label>Страна производства</label>
+{#                <input class="strana-izqotovleniye-tovara" type="text">#}
+                {{ form.country_of_origin }}
+                {{ form.country_of_origin.errors }}
+                <label>Изготовитель</label>
+{#                <input class="izqotovitel-tovara" type="text">#}
+                {{ form.producer }}
+                {{ form.producer.errors }}
+                <label>С какого возраста пользоваться</label>
+{#                <input class="vozrostnoye-oqranicheniye" type="text">#}
+                {{ form.age_to_use }}
+                {{ form.age_to_use.errors }}
+                <label>Срок годности</label>
+{#                <input class="srok-qodnosti-tovara" type="text">#}
+                {{ form.expiration_date_for_meal }}
+                {{ form.expiration_date_for_meal.errors }}
+                <p>Обязательно заполните, если у товара есть срок годности</p>
+                <br>
+                <label>Срок службы</label>
+{#                <input class="srok-slujbi-tovara" type="text">#}
+                {{ form.expiration_date_for_gadgets }}
+                {{ form.expiration_date_for_gadgets.errors }}
+                <label>Срок гарантии</label>
+{#                <input class="srok-qarantii" type="text">#}
+                {{ form.guarantee_period }}
+                {{ form.guarantee_period.errors }}
+                <br>
+                    <div class="button"> <div class="my-btn" onclick="showSecondForm(this)">Далее</div></div>
+                    <hr>
+                </div>
+
+                <div class="second-form" style="display: none">
+                <h2>Изображения</h2>
+                <p>Добавьте хотя бы одно изображение товара, а лучше несколько. Тогда мы сможем быстро проверить товар и создать карточку, если её ещё нет на Маркете. Изображения должны соответствовать требованиям.</p>
+                <strong>Мы принимаем:</strong>
+                <ul>
+                    <li>чёткие цветные фотографии</li>
+                    <li>отрисованные макеты</li>
+                    <li>видео</li>
+                    <li>3D-модели</li>
+                </ul>
+                <p>Фото и макеты вы можете добавлять сами. Если загрузите их здесь, а потом передадите нам файл с обновлённой информацией о товаре, мы будем использовать изображения из файла</p>
+                <br>
+                <p>Чтобы добавить видео или 3D-модель, отправьте запрос через форму.</p>
+                <div class="tovar-imgs">
+                    <div class="imgs">
+                        <div class="main-img">
+                            <div class="img 1">
+                                <label for="forfile1"><i class="fas fa-plus"></i></label>
+                                <div class="del-img" onclick="delPhoto(this)"><i class="fa-solid fa-x"></i></div>
+                                {{ form.photo_main }}
+                                {{ form.photo_main.errors }}
+                            </div>
+                        </div>
+                        <div class="img 2">
+                            <label for="forfile2"><i class="fas fa-plus"></i></label>
+                            <div class="del-img" onclick="delPhoto(this)"><i class="fa-solid fa-x"></i></div>
+                            {{ form.photo_1 }}
+                            {{ form.photo_1.errors }}
+                        </div>
+                        <div class="img 3">
+                            <label for="forfile3"><i class="fas fa-plus"></i></label>
+                            <div class="del-img" onclick="delPhoto(this)"><i class="fa-solid fa-x"></i></div>
+                            {{ form.photo_2 }}
+                            {{ form.photo_2.errors }}
+                        </div>
+                        <div class="img 4">
+                            <label for="forfile4"><i class="fas fa-plus"></i></label>
+                            <div class="del-img" onclick="delPhoto(this)"><i class="fa-solid fa-x"></i></div>
+                            {{ form.photo_3 }}
+                            {{ form.photo_3.errors }}
+                        </div>
+                        <div class="img 5">
+                            <label for="forfile5"><i class="fas fa-plus"></i></label>
+                            <div class="del-img" onclick="delPhoto(this)"><i class="fa-solid fa-x"></i></div>
+                            {{ form.photo_4 }}
+                            {{ form.photo_4.errors }}
+                        </div>
+                        <div class="img 6">
+                            <label for="forfile6"><i class="fas fa-plus"></i></label>
+                            <div class="del-img" onclick="delPhoto(this)"><i class="fa-solid fa-x"></i></div>
+                            {{ form.photo_5 }}
+                            {{ form.photo_5.errors }}
+                        </div>
+                        <div class="img 7">
+                            <label for="forfile7"><i class="fas fa-plus"></i></label>
+                            <div class="del-img" onclick="delPhoto(this)"><i class="fa-solid fa-x"></i></div>
+                            {{ form.photo_6 }}
+                            {{ form.photo_6.errors }}
+                        </div>
+                        <div class="img 8">
+                            <label for="forfile8"><i class="fas fa-plus"></i></label>
+                            <div class="del-img" onclick="delPhoto(this)"><i class="fa-solid fa-x"></i></div>
+                            {{ form.photo_7 }}
+                            {{ form.photo_7.errors }}
+                        </div>
+                        <div class="img 9">
+                            <label for="forfile9"><i class="fas fa-plus"></i></label>
+                            <div class="del-img" onclick="delPhoto(this)"><i class="fa-solid fa-x"></i></div>
+                            {{ form.photo_8 }}
+                            {{ form.photo_8.errors }}
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <h2>Характеристики в категории</h2>
+                <p>При поиске товара покупатели используют фильтры. Чем больше характеристик вы передадите, тем выше вероятность, что при фильтрации товар найдут.</p>
+                <label>Категория товара</label>
+                    <div class="add-tovar-kategorii">
+
+                        <div class="cat">
+                            {{ form.cat }}
+                            {{ form.cat.errors }}
+                        </div>
+                        <div class="podcat">
+                            {{ form.podcat }}
+                            {{ form.podcat.errors }}
+                        </div>
+                        <div class="podpodcat">
+                            {{ form.podpodcat }}
+                            {{ form.podpodcat.errors }}
+                        </div>
+                    </div>
+
+
+                <div class="inputs">
+
+                </div>
+                <div class="button"> <div class="my-btn" onclick="showThirdForm(this)">Схоранить</div></div>
+
+                </div>
+
+                <div class="third-form" style="display: none">
+                <h2>Размещение в магазинах</h2>
+                <label>Цена</label>
+{#                <input class="chena" type="text">#}
+                {{ form.price }}
+                {{ form.price.errors }}
+                <label>Цена до скидки</label>
+{#                <input class="chena-so-skidkoy" type="text">#}
+                {{ form.price_with_skidka }}
+                {{ form.price_with_skidka.errors }}
+
+                <br>
+
+                {{ form.properties }}
+                {{ form.properties.errors }}
+
+                <br>
+               <button type="submit">Добавить товар</button>
+               </div>
+            </form>
+            <br><br><br><br><br><br><br><br><br><br><br><br><
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        const kategoriya = document.querySelector('#kategoriya')
+        const podkategoriya = document.querySelector('#podkategoriya')
+        const podpodkategoriya = document.querySelector('#podpodkategoriya')
+        console.log(podpodkategoriya.value)
+        // let maincat = {% autoescape off %}{{ cat }}{% endautoescape %}
+
+        let options = document.querySelectorAll('.add-tovar-kategorii')
+
+
+        kategoriya.addEventListener('change', () => {
+                $(document).ready(function () {
+                    $.ajax({
+                        data: {
+                            "cat" : kategoriya.value ,
+                            "podcat" : podkategoriya.value,
+                            "podpodcat" : podpodkategoriya.value,
+                        },
+                        url: "{% url 'add_tovar_cats' %}",
+                        success: function (response) {
+                            console.log(1, response.podcats)
+                            try {
+                                let deldivs = document.querySelectorAll('.inputs div')
+                                deldivs.forEach(deldiv => {
+                                    deldiv.remove()
+                                })
+                            } catch {
+                            }
+                            let delPodcats = document.querySelectorAll('#podkategoriya option')
+                            delPodcats.forEach(delPodcat =>{
+                                delPodcat.remove()
+                            })
+                            let delPodPodcats = document.querySelectorAll('#podpodkategoriya option')
+                            delPodPodcats.forEach(delPodPodcat =>{
+                                delPodPodcat.remove()
+                            })
+                            if (response.podcats.length) {
+                                let createOption = document.createElement('option')
+                                createOption.innerText = ''
+                                podkategoriya.append(createOption)
+                                for (let i of response.podcats) {
+                                    let createOption = document.createElement('option')
+                                    createOption.innerText = i[1]
+                                    createOption.value = i[0]
+                                    podkategoriya.append(createOption)
+                                }
+                            }
+                        },
+                        error: function (response) {
+                            console.log(response.responseJSON.errors)
+                        }
+                    });
+                    return false;
+                })
+            })
+        podkategoriya.addEventListener('change', () => {
+            $(document).ready(function () {
+                $.ajax({
+                    data: {
+                        "cat" : kategoriya.value ,
+                        "podcat" : podkategoriya.value,
+                        "podpodcat" : podpodkategoriya.value,
+                    },
+                    url: "{% url 'add_tovar_cats' %}",
+                    success: function (response) {
+                        console.log(2, response.podpodcats)
+                            try {
+                                let deldivs = document.querySelectorAll('.inputs div')
+                                deldivs.forEach(deldiv => {
+                                    deldiv.remove()
+                                })
+                            } catch {
+                            }
+                            let delPodPodcats = document.querySelectorAll('#podpodkategoriya option')
+                            delPodPodcats.forEach(delPodPodcat =>{
+                                delPodPodcat.remove()
+                            })
+                            if (response.podpodcats.length) {
+                                let createOption = document.createElement('option')
+                                createOption.innerText = ''
+                                podpodkategoriya.append(createOption)
+                                for (let i of response.podpodcats) {
+                                    let createOption = document.createElement('option')
+                                    createOption.innerText = i[1]
+                                    createOption.value = i[0]
+                                    podpodkategoriya.append(createOption)
+                                }
+                            }
+                    },
+                    error: function (response) {
+                        console.log(response.responseJSON.errors)
+                    }
+                });
+                return false;
+            })
+        })
+        podpodkategoriya.addEventListener('change', () => {
+            $(document).ready(function () {
+                $.ajax({
+                    data: {
+                        "cat" : kategoriya.value ,
+                        "podcat" : podkategoriya.value,
+                        "podpodcat" : podpodkategoriya.value,
+                    },
+                    url: "{% url 'add_tovar_cats' %}",
+                    success: function (response) {
+                        console.log(3, response)
+                            let deldivs = document.querySelectorAll('.inputs div')
+                            deldivs.forEach(deldiv => {
+                                deldiv.remove()
+                            })
+                            for (let i of response.properties) {
+                                let input = document.createElement('input')
+                                let label = document.createElement("label")
+                                let div = document.createElement('div')
+                                label.innerText = i
+                                input.id = i
+                                input.type = 'text'
+                                div.append(label)
+                                div.append(input)
+                                document.querySelector('.inputs').append(div)
+                            }
+                    },
+                    error: function (response) {
+                        console.log(response.responseJSON.errors)
+                    }
+                });
+                return false;
+            })
+        })
+
+
+
+        //
+        // const xarakteristika = ['Состояние товара','Производитель','Линейка',' Платформа',' Диагональ экрана','Формат разрешения экрана','Операционная система','Разрешение экрана','Частота обновления экрана','Встроенная память','Оперативная память','Стандарт связи','Разрешение основной камеры','Количество основных камер','Соотношение сторон экрана','Разрешение фронтальной камеры, Мпикс','Количество SIM-карт','Емкость аккумулятора','Процессор','Степень защиты от влаги','Количество ядер процессора','Тип матрицы экрана','Производитель процессора','Время работы','Выход на наушники','Тип разъема для зарядки','Функции зарядки','Разрешение при видеосъемке, макс','Частота кадров при записи видео, макс']
+        // podpodkategoriya.addEventListener('click', (event)=> {
+        //     let inputPlace = document.querySelector('form .inputs')
+        //     inputPlace.innerHTML = ''
+        //     if (podpodkategoriya.value === '1') {
+        //         for (let i of xarakteristika) {
+        //             let input = document.createElement('input')
+        //             let label = document.createElement("label")
+        //             let div = document.createElement('div')
+        //             label.innerText = i
+        //             input.id = i
+        //             input.type = 'text'
+        //             div.append(label)
+        //             div.append(input)
+        //             inputPlace.append(div)
+        //         }
+        //     }
+        // })
+
+        function translit(word){
+            let answer = '';
+            let converter = {
+                'а': 'a',    'б': 'b',    'в': 'v',    'г': 'g',    'д': 'd',
+                'е': 'e',    'ё': 'e',    'ж': 'zh',   'з': 'z',    'и': 'i',
+                'й': 'y',    'к': 'k',    'л': 'l',    'м': 'm',    'н': 'n',
+                'о': 'o',    'п': 'p',    'р': 'r',    'с': 's',    'т': 't',
+                'у': 'u',    'ф': 'f',    'х': 'h',    'ц': 'c',    'ч': 'ch',
+                'ш': 'sh',   'щ': 'sch',  'ь': '',     'ы': 'y',    'ъ': '',
+                'э': 'e',    'ю': 'yu',   'я': 'ya',
+
+                'А': 'A',    'Б': 'B',    'В': 'V',    'Г': 'G',    'Д': 'D',
+                'Е': 'E',    'Ё': 'E',    'Ж': 'Zh',   'З': 'Z',    'И': 'I',
+                'Й': 'Y',    'К': 'K',    'Л': 'L',    'М': 'M',    'Н': 'N',
+                'О': 'O',    'П': 'P',    'Р': 'R',    'С': 'S',    'Т': 'T',
+                'У': 'U',    'Ф': 'F',    'Х': 'H',    'Ц': 'C',    'Ч': 'Ch',
+                'Ш': 'Sh',   'Щ': 'Sch',  'Ь': '',     'Ы': 'Y',    'Ъ': '',
+                'Э': 'E',    'Ю': 'Yu',   'Я': 'Ya', ' ': ''
+            };
+
+            for (let i = 0; i < word.length; ++i ) {
+                if (converter[word[i]] == undefined){
+                    answer += word[i];
+                } else {
+                    answer += converter[word[i]];
+                }
+            }
+
+            return answer;
+        }
+
+        let textarea = document.querySelector('#id_properties')
+        function addTovar() {
+            let jsonius = {}
+            let inputs = document.querySelectorAll('form .inputs input')
+            inputs.forEach(input=> {
+                input.style.border = '2px green solid'
+            })
+            for (let input of inputs) {
+                if (input.value === '') {
+                    jsonius[translit(input.id).toLowerCase()] = [input.id, null]
+                } else {
+                    jsonius[translit(input.id).toLowerCase()] = [input.id, input.value]
+
+                }
+            }
+            let a = JSON.stringify(jsonius)
+            textarea.innerText = a
+            console.log(a)
+        }
+
+        function showThirdForm() {
+            let secondForm = document.querySelector('.third-form')
+            secondForm.style.display = 'block'
+            addTovar()
+        }
+
+
+
+    </script>
+    <script src="https://kit.fontawesome.com/3cb2bc27fe.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'homepage/js/script.js' %}"></script>
+</body>
+</html>
+

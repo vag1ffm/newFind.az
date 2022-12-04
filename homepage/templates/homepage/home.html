@@ -1,0 +1,20 @@
+{% extends 'homepage/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<center>
+    <h1>homepage</h1>
+</center>
+<ul>
+    {% for tovar in tovari %}
+        <li>
+            <a href="{{ tovar.get_absolute_url }}">{{ tovar.title }}</a>
+            <p>{{ tovar.content|linebreaks|truncatewords:30 }}</p>
+            {% if tovar.photo %}
+                <img src="{{ tovar.photo.url }}" alt="">
+            {% endif %}
+            <hr>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "homepage/layout.html" %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+    <main class="main-of-profile">
+        <div class="header-of-profile">
+            <div class="profile-infa">
+                <div class="logo-and-rating">
+                    <div class="profile-logo">
+                        -_-
+                    </div>
+                    <div class="profile-namw">
+                        <h2>{{ salesman.occupation }}</h2>
+                    </div>
+                    <div class="profile-rating">
+                        <i class="fas fa-star"></i> 4.9
+                    </div>
+                </div>
+                <div class="prfile-razdeli">
+                    <ul>
+                        <li>Главная</li>
+                        <li>Отзывы</li>
+                        <li>О магазине</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="profile-content">
+            <div class="profile-sdiv">
+                <h2>Все товары</h2>
+                <div class="profile-tdiv">
+                    <div class="div-of-ul">
+                        <h4>Категории</h4>
+                        <ul>
+                            {% for ppcat in podpodcats %}
+                                <li>{{ ppcat }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="provile-fdiv">
+
+                {% for ppcat in spisok %}
+
+                    <h2>{{ ppcat.0.podpodcat }}</h2>
+
+                    <div class="qlavniye-tovari">
+                        <div class="name-razdela-tovarov">
+                            <div class="tovari">
+
+                                {% for tovar in ppcat %}
+
+					                <div class="qlavniy-tovar">
+
+                                        <div class="izbranniy-tovar">
+                                            {% if request.user.is_authenticated %}
+                                                    <label for="{{ tovar.pk }}" class="{% if tovar in fav_tovari %}red{% endif %}">
+                                                        <i class="fa-solid fa-heart {{ tovar.pk }}"></i>
+                                                    </label>
+                                                    <input name="favorite" style="display: none" class='heart' type="checkbox" id="{{ tovar.pk }}">
+                                            {% else %}
+                {#                                                <a href="{% url 'login' %}">#}
+                                                    <i class="fa-solid fa-heart"></i>
+                {#                                                </a>#}
+                                            {% endif %}
+                                        </div>
+                                        <a href="{{ tovar.get_absolute_url }}">
+                                            <div class="qlavniy-tovar-img"><img src="{{ tovar.photo_main.url }}" alt=""></div>
+                                            <span class="tovar-info">
+                                                <div class="chena">{{ tovar.price }} ₼</div>
+                                                <div class="reyting">
+                                                    <div class="zvezda">звезды</div>
+                                                    <div class="chislo-ochenik">{{ tovar.rating }}</div>
+                                                </div>
+                                                <div class="tovar-name">{{ tovar.title|truncatewords:10 }}</div>
+                                                <div class="rekomenduyemost">86% рекомендуют</div>
+                                            </span>
+                                        </a>
+                                        {% if tovar in cart_tovari %}
+                                            <div class="button"><input type="button" value="В корзине" style="background-color: #e1b70c"></div>
+                                        {% else %}
+                                            <div class="button"><input type="button" value="Добавить в корзину"></div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+{% endblock content %}
+
+{% block js %}
+{% endblock js %}

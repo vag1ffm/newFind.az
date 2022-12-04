@@ -1,0 +1,129 @@
+{% extends "homepage/layout.html" %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+    <main class="korzina-main">
+        <div class="korzina-content">
+            <h2>Корзина товаров</h2>
+            <div class="cart-with-check">
+                <div class="chek-tovarov">
+                    <h2>Ваш Чек: </h2>
+                    <table class="table-check">
+                        <tr class="first"><th >Название товара</th><th>Количество</th><th>Цена</th></tr>
+
+                    </table>
+                    <table class="for-price">
+
+                    </table>
+                </div>
+                <div class="tovari">
+                    {% if tovari %}
+                        {% for tovar in tovari %}
+                            <div class="qlavniy-tovar">
+                                <div class="izbranniy-tovar">
+                                    {% if request.user.is_authenticated %}
+                                        <label for="{{ tovar.0.pk }}" class="{% if tovar.0 in fav_tovari %}red{% endif %}">
+                                            <i class="fa-solid fa-heart {{ tovar.0.pk }}"></i>
+                                        </label>
+                                        <input name="favorite" style="display: none" class='heart' type="checkbox" id="{{ tovar.0.pk }}">
+                                    {% else %}
+                                        <i class="fa-solid fa-heart"></i>
+                                    {% endif %}
+                                </div>
+                                <a href="{{ tovar.0.get_absolute_url }}">
+                                    <div class="qlavniy-tovar-img"><img src="{{ tovar.0.photo_main.url }}" alt=""></div>
+                                    <span class="tovar-info">
+                                        <div class="chena">{{ tovar.0.price }} ₼</div>
+                                        <div class="reyting">
+                                            <div class="zvezda">звезды</div>
+                                            <div class="chislo-ochenik">{{ tovar.0.rating }}</div>
+                                        </div>
+                                        <div class="tovar-name">{{ tovar.0.title|truncatewords:10 }}</div>
+                                        <div class="rekomenduyemost">86% рекомендуют</div>
+                                    </span>
+                                </a>
+                                <div class="button {{ tovar.0.pk }}"  onclick="check(this)"><button onclick="if (cart{{ tovar.0.pk }}.value<=1){} else {cart{{ tovar.0.pk }}.value--}">-</button> <input  id="cart{{ tovar.0.pk }}" type="number" min="0" value="{{ tovar.1 }}"> <button onclick="{cart{{ tovar.0.pk }}.value++}">+</button></div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+<script>
+    function artOfCarts() {
+        let tableCheckes = document.querySelectorAll('.table-check tr')
+        tableCheckes.forEach(tableCheck => {
+            tableCheck.remove()
+        })
+        let foPricehtmles = document.querySelectorAll('.for-price tr')
+        foPricehtmles.forEach(foPricehtml => {
+            foPricehtml.remove()
+        })
+        let listCheck = []
+        let tovari = document.querySelectorAll('.qlavniy-tovar')
+        tovari.forEach(tovar => {
+            let name = tovar.querySelector('.tovar-name').innerText
+            let chena = tovar.querySelector('.chena').innerText
+            let count = tovar.querySelector('.button input[type=number]').value
+            listCheck.push([name, chena, count])
+        })
+        let summaTovarov = 0;
+        listCheck.forEach(tovarInCheck=> {
+            summaTovarov += (+tovarInCheck[1].replace(',','.').slice(0,-2) * tovarInCheck[2])
+        })
+        console.log(summaTovarov)
+
+        let summa = `<tr><td><b>Сумма</b></td><td></td><td><b>${summaTovarov} ₼</b></td></tr>`
+        console.log(listCheck)
+        listCheck.forEach(tovarInCheck=> {
+            let ckeckHtml = `<tr><td>${tovarInCheck[0]}</td><td>${tovarInCheck[1].slice(0,-2)} X ${tovarInCheck[2]}</td><td>${tovarInCheck[1].replace(',','.').slice(0,-2)* +tovarInCheck[2]} ₼</td></tr>`
+
+            let table = document.querySelector('.chek-tovarov table')
+            let forPrice = document.querySelector('.chek-tovarov .for-price')
+            table.innerHTML += ckeckHtml
+            forPrice.innerHTML = summa
+        })
+    }
+    var amir;
+    function check(i) {
+        clearTimeout(amir)
+        amir = setTimeout(()=> {
+        artOfCarts()
+        let dbId = i.classList[1]
+        console.log(dbId)
+        let dbCount = i.querySelector('input[type=number]').value
+        $(document).ready(function () {
+            $.ajax({
+                data: {
+                    "id": dbId,
+                    "count": dbCount
+                },
+                url: "{% url 'cart_count' %}",
+                success: function (response) {
+                    console.log(555)
+                },
+                error: function (response) {
+                    console.log(response.responseJSON.errors)
+                }
+            });
+            return false;
+            })
+        }, 2000)
+    }
+    artOfCarts()
+
+
+
+</script>
+{% endblock content %}
+
+{% block js %}
+
+
+
+{% endblock js %}

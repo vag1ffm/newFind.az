@@ -1,0 +1,594 @@
+{% load static %}
+<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="icon" href="{% static 'homepage/img/icon-of-site.webp' %}">
+		<link rel="stylesheet" type="text/css"  href="{% static 'homepage/css/style-new.css' %}">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="manifest" href="manifest.json">
+        {% block ogmeta %}{% endblock ogmeta %}
+		<title>{% block title %}{% endblock title %}</title>
+	</head>
+	<body>
+	<header class="desktop-header">
+		<div class="pervaya-stupen">
+			<div class="logo">
+				<div class="logo-icon"></div>
+				<div class="logo-text"><a href="{% url 'home' %}">Find.az</a></div>
+			</div>
+			<div class="poiskovoy-div">
+				<div class="katalog" onclick="movekatalog()">
+					<div class="katalog-icon"><i class="fa-solid fa-bars"></i></div>
+					<div class="katalog-text">Каталог</div>
+				</div>
+				<div class="poiskovik">
+                    <input type="text" placeholder="Искать товары" class="poisk-tovarov">
+                    <input type="button" value="Найти">
+                    <div  class="varianti-poiska" style="display: none;">
+                    </div>
+				</div>
+			</div>
+			<div class="knopochniy-div">
+				<div class="zakazi">
+					<a href="{% if request.user.is_authenticated %}{# url 'zakazi' #}{% else %}{% url 'login' %}{% endif %}">
+						<div class="zakazi-icon"><i class="fa-solid fa-box"></i></div>
+						<div class="zakazi-text">Заказы</div>
+					</a>
+				</div>
+				<div class="izbrannoe">
+					<a href="{% if request.user.is_authenticated %}{% url 'show_favorites' %}{% else %}{% url 'login' %}{% endif %}">
+						<div class="izbranoe-icon"><i class="fa-solid fa-heart"></i></div>
+						<div class="izbranoe-text">Избранные</div>
+					</a>
+				</div>
+				<div class="korzina">
+					<a href="{% if request.user.is_authenticated %}{% url 'show_cart' %}{% else %}{% url 'login' %}{% endif %}">
+						<div class="korzina-icon"><i class="fa-solid fa-basket-shopping"></i></div>
+						<div class="korzina-text">Корзина</div>
+					</a>
+				</div>
+			</div>
+
+			{% if request.user.is_authenticated %}
+
+				<div  class="logo-of-profile-in-mainpg">
+					<div class="img">
+						<img src="">
+					</div>
+					<div class="perexodi-iz-mainpg">
+						<h4><a href="">{{ user.last_name }} {{ user.first_name }}</a></h4>
+						<ul>
+                            {% if user.is_seller == True %}
+							    <li><a href="{{ salesman.get_absolute_url }}">Профиль</a></li>
+                            {% endif %}
+							<li><a href="">Настройки</a></li>
+                            {% if user.is_seller == True %}
+							    <li><a href="{% url 'addtovar' %}">Добавить товар</a></li>
+                            {%  endif %}
+                            <li><a href="{% url 'logout' %}">Выход</a></li>
+						</ul>
+					</div>
+				</div>
+
+			{% else %}
+
+				<div  class="voyti">
+					<a href="{% url 'login' %}">
+						<div class="voyti-knopka">
+							<div class="voyti-text">Войти</div>
+						</div>
+					</a>
+				</div>
+
+			{% endif %}
+
+		</div>
+		<div class="katalogi">
+			<div class="listi-kategori">
+				<ul>
+					{% for c in cats %}
+                        {% if c.id == cats.0.id %}
+                            <li onmouseenter="showkatalog('{{ c.topic }}')">
+                                <div class="list-katalog-left ">
+                                    <div class="list-katalog-left-icon"><i class="fas {{ c.icon }}"></i></div>
+                                    <div class="list-katalog-left-text">{{ c.name }}</div>
+                                </div>
+                                <div class="list-katalog-right">
+                                    <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                                </div>
+                                <div class="list-katalog-list {{ c.topic }} show" >
+                                    <h1>{{ c.name }}</h1>
+                                    <div class="pod-kategorii">
+                                        {% for pc in pcats %}
+                                            {% if pc.maincat.name == c.name %}
+                                                <div class="pod-kategoriya">
+                                                    <h3><a href="{{ pc.get_absolute_url }}">{{ pc.name }}</a></h3>
+                                                    <ul>
+                                                        {% for ppc in ppcats %}
+                                                            {% if ppc.mainpodcat.name == pc.name %}
+                                                                <li><a href="{{ ppc.get_absolute_url }}">{{ ppc.name }}</a></li>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </li>
+                        {% else %}
+                            <li onmouseenter="showkatalog('{{ c.topic }}')">
+                                <div class="list-katalog-left ">
+                                    <div class="list-katalog-left-icon"><i class="fas {{ c.icon }}"></i></div>
+                                    <div class="list-katalog-left-text">{{ c.name }}</div>
+                                </div>
+                                <div class="list-katalog-right">
+                                    <div class="list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+                                </div>
+                                <div class="list-katalog-list {{ c.topic }}" >
+                                    <h1>{{ c.name }}</h1>
+                                    <div class="pod-kategorii">
+                                        {% for pc in pcats %}
+                                            {% if pc.maincat.name == c.name %}
+                                                <div class="pod-kategoriya">
+                                                    <h3><a href="{{ pc.get_absolute_url }}">{{ pc.name }}</a></h3>
+                                                    <ul>
+                                                        {% for ppc in ppcats %}
+                                                            {% if ppc.mainpodcat.name == pc.name %}
+                                                                <li><a href="{{ ppc.get_absolute_url }}">{{ ppc.name }}</a></li>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </li>
+                        {% endif %}
+					{% endfor %}
+				</ul>
+
+			</div>
+			<div class="infa-list-katalogax">
+
+			</div>
+		</div>
+		<div class="ftoraya-stupen">
+			<div class="mesopolojeniye">
+				<div class="mesopolojeniye-icon"><i class="fa-solid fa-location-dot"></i></div>
+				<div class="mesopolojeniye-qorod">Баку</div>
+			</div>
+			<div class="top-kateqorii">
+				<ul class="spisok-kateqoriy">
+                    {% for i in cats %}
+                        <li><a href="{{ i.get_absolute_url }}">{{ i.name }}</a></li>
+                    {% endfor %}
+				</ul>
+			</div>
+			<div class="priqlasheniye">Продавайте с нами</div>
+		</div>
+	</header>
+	<header class="mobile-header">
+		<div class="mobile-petviy-stupen">
+			<div class="logo">
+				<div class="logo-icon"></div>
+				<div class="logo-text"><a href="{% url 'home' %}">Find.az</a></div>
+			</div>
+			<div class="right-size-of-mhead">
+				<div class="poiskovoy-icon">
+					<i class="fas fa-search" onclick="showpoiskovik()"></i>
+				</div>
+				<div class="izbrannoe">
+					<a href="{% if request.user.is_authenticated %}{% url 'show_favorites' %}{% else %}{% url 'login' %}{% endif %}">
+						<div class="izbranoe-icon"><i class="fa-solid fa-heart"></i></div>
+						<div class="izbranoe-text">Избранные</div>
+					</a>
+				</div>
+				<div class="korzina">
+					<a href="{% if request.user.is_authenticated %}{% url 'show_cart' %}{% else %}{% url 'login' %}{% endif %}">
+						<div class="korzina-icon"><i class="fa-solid fa-basket-shopping"></i></div>
+						<div class="korzina-text">Корзина</div>
+					</a>
+				</div>
+				<div class="katalog" style="display:block;">
+					<div class="katalog-icon"  onclick="showleftbar()"><i class="fa-solid fa-bars"></i></div>
+				</div>
+				<div class="close-bar katalog" onclick="showleftbar()"  style="display: none">
+					<i class="fas fa-times"></i>
+				</div>
+			</div>
+		</div>
+		<div class="mobile-vtoraya-stupen">
+			<div class="left-bar">
+				<div class="left-bar-content">
+
+					{% if request.user.is_authenticated %}
+
+						<div class="mobile-logo-in-mainpg">
+							<div class="logo"><img src=""></div>
+							<div class="nikname"><h4>{{ user.last_name }} {{ user.first_name }}</h4></div>
+						</div>
+
+					{% else %}
+
+						<div class="voyti" >
+							<a href="{% url 'login' %}">
+							<div class="voyti-knopka">
+								<div class="voyti-text">Войти/Зарегистрироваться</div>
+							</div>
+							</a>
+						</div>
+
+					{% endif %}
+
+					<ul>
+						<li><a href="{% if user.is_seller == True %}{{ salesman.get_absolute_url }}{% else %}{% url 'login' %}{% endif %}">Профиль</a></li>
+						<li><a href="{% if request.user.is_authenticated %}{# url 'nastroyki' #}{% else %}{% url 'login' %}{% endif %}">Настройки</a></li>
+                        {% if user.is_seller == True %}
+						    <li><a href="{% if request.user.is_authenticated %}{% url 'addtovar' %}{% else %}{% url 'login' %}{% endif %}">Добавить товар</a></li>
+                        {% endif %}
+						{% if request.user.is_authenticated %}
+							<li><a href="{% url 'logout' %}">Выход</a></li>
+						{% endif %}
+					</ul>
+
+				</div>
+			</div>
+			<div class="mobile-katalog-tovarov" onclick="mobileshowkatalog()">
+				<p>Каталог товаров</p> <i class="fa-solid fa-angle-down"></i>
+			</div>
+		</div>
+        <div class="mobile-poiskovik">
+            <div class="poiskovik">
+                <input type="text" placeholder="Искать товары" class="poisk-tovarov">
+                <input type="button" value="Найти">
+                <div  class="varianti-poiska" style="display: none;">
+                </div>
+            </div>
+        </div>
+		<div class="mobile-list-katalog-tovarov showmlk">
+			<ul style="left: 0">
+
+				{% for c in cats %}
+					<li onclick="showpraviykatalog('mobil-{{ c.topic }}')">
+						<div class="mobile-list-katalog-left ">
+							<div class="mobile-list-katalog-left-icon"><i class="fas {{ c.icon }}"></i></div>
+							<div class="mobile-list-katalog-left-text">{{ c.name }}</div>
+						</div>
+						<div class="mobile-list-katalog-right">
+							<div class="mobile-list-katalog-right-icon"><i class="fa-solid fa-angle-right"></i></div>
+						</div>
+					</li>
+				{% endfor %}
+			</ul>
+
+			{% for c in cats %}
+				<div class="praviy-katalog mobil-{{ c.topic }}">
+					<div class="mobil-list-kataloga">
+						<div class="nazad" onclick="backtokatalog('mobil-{{ c.topic }}')"><div class="nazad-icon"><i class="fas fa-angle-left"></i></div><p>Назад</p></div>
+						<h3>{{ c.name }}</h3>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+
+	</header>
+
+    <div class="preloader">
+		<div class="loading-spinner"></div>
+	</div>
+
+	{% block content %}
+	{% endblock content %}
+
+    <footer>
+		<div class="content">
+			<div class="left box">
+				<div class="upper">
+					<div class="topic">Про нас</div>
+					<p>Этот сайт разработан для покупателей, которые смогут находить товары, и так же для продавцов, для размещения товаров через данный им кабинет.</p>
+				</div>
+				<div class="footer-social-link">
+				<h3>Следите за нами</h3>
+				<ul>
+					<li>
+						<a href="#">
+							<i class="fa fa-facebook"></i>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-twitter"></i>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-google-plus"></i>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-linkedin"></i>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-instagram"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+			</div>
+			<div class="middle box">
+				<div class="topic">Наши сервисы</div>
+				<div><a href="{% if user.is_seller == True %}{% url "addtovar" %}{% else %}{% url 'login' %}{% endif %}">Кабинет продавца</a></div>
+				<div><a href="{% url "home" %}">Главная страница</a></div>
+				<div><a href="{% url "home" %}">Фильтр</a></div>
+				<div><a href="{% if user.is_seller == True %}{{ user.get_absolute_url }}{% else %}{% url 'login' %}{% endif %}">Профиль</a></div>
+				<div><a href="{% url "register" %}">Зарегистрироваться</a></div>
+			</div>
+			<div class="right box">
+
+				<div class="topic">Свяжитесь с нами</div>
+				<div class="phone">
+					<a href="#"><i class="fas fa-phone-volume"></i>+994 xx xxx xx xx</a>
+				</div>
+				<div class="email">
+					<a href="#"><i class="fas fa-envelope"></i>find.az.team@gmail.com</a>
+				</div>
+			</div>
+		</div>
+		<div class="bottom">
+			<p>Copyright © 23.02.2022 <a href="#">FindAz</a> All rights reserved</p>
+		</div>
+	</footer>
+
+	<script src="https://kit.fontawesome.com/3cb2bc27fe.js" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="{% static 'homepage/js/script.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        const dpoiskoviki = document.querySelector('.desktop-header .poisk-tovarov')
+		const dplaceOfVariants = document.querySelector('.desktop-header .varianti-poiska')
+		dpoiskoviki.addEventListener('input', ()=> {
+			mpoiskoviki.value = dpoiskoviki.value
+			dpoiskoviki.value = mpoiskoviki.value
+                if (dpoiskoviki.value === '') {
+						dplaceOfVariants.style.display = 'none'
+                } else {
+                    $(document).ready(function () {
+							dplaceOfVariants.style.display = 'block'
+						let variantOfSearches = document.querySelectorAll('.desktop-header .variant-poiska')
+						variantOfSearches.forEach(variantOfSearch => {
+							variantOfSearch.style.display = 'none'
+						})
+						let searchWord = dpoiskoviki.value
+						console.log(searchWord)
+						let maindiv = document.createElement('div')
+						let a = document.createElement('a')
+						maindiv.classList.add('variant-poiska')
+						a.innerText = searchWord
+						a.href = `/find/?name=${searchWord}`
+						maindiv.append(a)
+						dplaceOfVariants.append(maindiv)
+                        $.ajax({
+                            data: { 'value': searchWord },
+                            url: "{% url 'find_tovari' %}",
+                            success: function (response) {
+									for (let i of response.list_title) {
+										let div = document.createElement('div')
+										div.classList.add('variant-poiska')
+										let a = document.createElement('a')
+										a.innerText = i
+										a.href = `/find/?name=${i}`
+										div.append(a)
+										dplaceOfVariants.append(div)
+										console.log(response)
+									}
+                            },
+                            error: function (response) {
+                                console.log(response.responseJSON.errors)
+                            }
+                        }).then(()=>{
+							let variants = document.querySelectorAll('.desktop-header .variant-poiska')
+							variants.forEach(variant => {
+								variant.addEventListener('click', (event)=>{
+									dpoiskoviki.value = event.target.innerText
+								})
+							})
+						})
+                        return false;
+                    })
+                }
+            })
+
+		function find(i) {
+			let a = i.parentElement.querySelector('input').value
+			document.location.href = `/find/?name=${a}`;
+		}
+
+		dpoiskoviki.addEventListener('keydown', (e)=> {
+			if (e.keyCode === 13) {
+				let searchWord = dpoiskoviki.value
+				document.location.href = `/find/?name=${searchWord}`;
+			}
+		})
+
+		const mpoiskoviki = document.querySelector('.mobile-header .poisk-tovarov')
+		const mplaceOfVariants = document.querySelector('.mobile-header .varianti-poiska')
+		mpoiskoviki.addEventListener('input', ()=> {
+			dpoiskoviki.value = mpoiskoviki.value
+			mpoiskoviki.value = dpoiskoviki.value
+			if (mpoiskoviki.value === '') {
+				mplaceOfVariants.style.display = 'none'
+			} else {
+				$(document).ready(function () {
+					mplaceOfVariants.style.display = 'block'
+					let variantOfSearches = document.querySelectorAll('.mobile-header .variant-poiska')
+					variantOfSearches.forEach(variantOfSearch => {
+						variantOfSearch.style.display = 'none'
+					})
+					let searchWord = mpoiskoviki.value
+					console.log(searchWord)
+					let maindiv = document.createElement('div')
+					let a = document.createElement('a')
+					maindiv.classList.add('variant-poiska')
+					a.innerText = searchWord
+					a.href = `/find/?name=${searchWord}`
+					maindiv.append(a)
+					mplaceOfVariants.append(maindiv)
+					$.ajax({
+						data: { 'value': searchWord },
+						url: "{% url 'find_tovari' %}",
+						success: function (response) {
+							for (let i of response.list_title) {
+								let div = document.createElement('div')
+								div.classList.add('variant-poiska')
+								let a = document.createElement('a')
+								a.innerText = i
+								a.href = `/find/?name=${i}`
+								div.append(a)
+								mplaceOfVariants.append(div)
+								console.log(response)
+							}
+						},
+						error: function (response) {
+							console.log(response.responseJSON.errors)
+						}
+					}).then(()=>{
+						let variants = document.querySelectorAll('.mobile-header .variant-poiska')
+						variants.forEach(variant => {
+							variant.addEventListener('click', (event)=>{
+								mpoiskoviki.value = event.target.innerText
+							})
+						})
+					})
+					return false;
+				})
+			}
+		})
+
+		function find(i) {
+			let a = i.parentElement.querySelector('input').value
+			document.location.href = `/find/?name=${a}`;
+		}
+
+		mpoiskoviki.addEventListener('keydown', (e)=> {
+			if (e.keyCode === 13) {
+				let searchWord = mpoiskoviki.value
+				document.location.href = `/find/?name=${searchWord}`;
+			}
+		})
+
+        {% if  fav_tovari_id_list %}
+		let likes = {{ fav_tovari_id_list }};
+        {% else %}
+        let likes = [];
+        {% endif %}
+
+		function EventLikes(event) {
+			$(document).ready(function () {
+				$.ajax({
+					data: {
+						"favorite": event.target.id
+					},
+					url: "{% url 'crud_favorites' %}",
+					success: function (response) {
+						let a = event.target.parentElement.querySelector("label")
+						likes = response.fav_tovari
+						if (response.is_favorite) {
+							a.classList.add("red")
+						} else {
+							a.classList.remove("red")
+							{% block js_crud_fav %}
+							{% endblock js_crud_fav %}
+						}
+					},
+					error: function (response) {
+						console.log(response.responseJSON.errors)
+					}
+				});
+				return false;
+			})
+		}
+		function delLikes() {
+			let chekboxik = document.querySelectorAll('.heart')
+			chekboxik.forEach(chekbox => {
+				chekbox.removeEventListener('click', EventLikes)
+			})
+		}
+
+        function setLikes() {
+            let chekboxik = document.querySelectorAll('.heart')
+            chekboxik.forEach(chekbox => {
+                chekbox.addEventListener('click', EventLikes)
+            })
+        }
+        setLikes()
+
+
+		{% if  cart_tovari_id_list %}
+		let cart_list = {{ cart_tovari_id_list }};
+		{% else %}
+		let cart_list = [];
+		{% endif %}
+
+		function EventCarts(event) {
+			let id = event.target.closest('.qlavniy-tovar').querySelector('.izbranniy-tovar input').id
+			$(document).ready(function () {
+				$.ajax({
+					data: {"id": id},
+					url: "{% url 'crud_cart' %}",
+					success: function (response) {
+						let input = event.target
+						cart_list = response.cart_tovari
+						if (response.is_in_cart) {
+							input.value = 'В корзине'
+							input.classList.add('vkorzine')
+						} else {
+							input.value = 'Добавить в корзину'
+							input.classList.remove('vkorzine')
+						}
+					},
+					error: function (response) {
+						console.log(response.responseJSON.errors)
+					}
+				});
+				return false;
+			})
+		}
+		function DelCards() {
+			const vKorzitus = document.querySelectorAll('.qlavniy-tovar .button input[type=button]')
+			vKorzitus.forEach(vKorzitu => {
+				vKorzitu.removeEventListener('click', EventCarts)
+			})
+		}
+
+		function setCards() {
+			const vKorzitus = document.querySelectorAll('.qlavniy-tovar .button input[type=button]')
+			vKorzitus.forEach(vKorzitu => {
+				vKorzitu.addEventListener('click', EventCarts)
+			})
+		}
+
+		setCards()
+        document.body.onload = function () {
+            setTimeout(()=>{
+                let preloader = document.querySelector('.preloader')
+                if (!preloader.classList.contains('done-of-load')) {
+                    preloader.classList.add('done-of-load')
+                }
+            },1000)
+        }
+    {% block js %}
+    {% endblock js %}
+    </script>
+
+    {% block new_script %}
+    {% endblock new_script %}
+</body>
+</html>

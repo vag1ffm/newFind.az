@@ -1,0 +1,216 @@
+{% extends 'homepage/layout.html' %}
+{% load static %}
+{% load homepage_tag %}
+
+{% block ogmeta %}
+    <meta name="description" content="FindAz - cамый лучший интернет магазин в Азербайджане, в котором есть всё! Вы можете найти любой товар который вам нужен и узнать о нём все что нужно, чтобы сходить в магазин и купить его или же заказть его через нас">
+    <meta name="Keywords" content="FindAz, Интернет магазин, FindAz - cамый лучший интернет магазин в котором есть всё!, категори, каталоги">
+    <meta property="og:title" content="FindAz - лучший интернет магазин в Азербайджане">
+    <meta property="og:image" content="<img class='redactor-autoparser-object'=''='' src='{% static 'homepage/img/icon-of-site.webp' %}' >'='">
+    <meta property="og:url" content="https://findaz.pythonanywhere.com/">
+    <meta property="og:description" content="FindAz - cамый лучший интернет магазин в Азербайджане, в котором есть всё! Вы можете найти любой товар который вам нужен и узнать о нём все что нужно, чтобы сходить в магазин и купить его или же заказть его через нас">
+{% endblock ogmeta %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+
+	<div class="slayder">
+		<img src="{% static 'homepage/img/reklama1.jpg' %}" alt="">
+	</div>
+	<div class="content">
+		<main>
+			{% for pc in podcats %}
+                {% if  forloop.counter0|index %}
+                    <div class="razdel-razdela">
+                        <h2>{{ forloop.counter0|podcatname }}</h2>
+                        <div class="razdel-razdel-tovari">
+                            {% for i in forloop.counter0|index %}
+                                <div class="razdel-razdel-tovar">
+                                    <a href="{{ i.get_absolute_url }}">
+                                        <h4 class="razdel-razdel-name">{{ i.name }}</h4>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="complekt-tovarov">
+                    <h1>{{ pc.0.podpodcat }}</h1>
+                    <div class="tovari">
+                        {% for tovar in pc %}
+                        <div class="qlavniy-tovar">
+                            {% if forloop.last and not forloop.first %}
+                                <div class="space">
+                                    <a href="{{ tovar.podpodcat.get_absolute_url }}">
+                                        <div>Ещё</div>
+                                        <div><i class="fas fa-angle-right"></i></div>
+                                    </a>
+                                </div>
+                            {% endif %}
+                            <div class="izbranniy-tovar">
+                                {% if request.user.is_authenticated %}
+                                    <label for="{{ tovar.pk }}" class="{% if tovar in fav_tovari %}red{% endif %}">
+                                        <i class="fa-solid fa-heart {{ tovar.pk }}"></i>
+                                    </label>
+                                    <input name="favorite" style="display: none" class='heart' type="checkbox" id="{{ tovar.pk }}">
+                                {% else %}
+                                    <i class="fa-solid fa-heart"></i>
+                                {% endif %}
+                            </div>
+                            <a href="{{ tovar.get_absolute_url }}">
+                                <div class="qlavniy-tovar-img"><img src="{{ tovar.photo_main.url }}" alt=""></div>
+                                <span class="tovar-info">
+                                    <div class="chena">{{ tovar.price }} ₼</div>
+                                    <div class="reyting">
+                                        <div class="zvezda">звезды</div>
+                                        <div class="chislo-ochenik">{{ tovar.rating }}</div>
+                                    </div>
+                                    <div class="tovar-name">{{ tovar.title|truncatewords:10 }}</div>
+                                    <div class="rekomenduyemost">86% рекомендуют</div>
+                                </span>
+                            </a>
+                            {% if tovar in cart_tovari %}
+                                <div class="button"><input type="button" value="В корзине" class="vkorzine"></div>
+                            {% else %}
+                                <div class="button"><input type="button" value="Добавить в корзину"></div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+		</main>
+<!--		<div class="reklami">-->
+<!--			<div class="reklama">-->
+<!--				<img src="https://avatars.mds.yandex.net/get-adfox-content/2765366/220415_market_1878578_5195915_1.b4846eb40d021e44e9306f4dcef4d9b4.jpg/optimize.webp" alt="">-->
+<!--			</div>-->
+<!--			<div class="reklama">-->
+<!--				<img src="https://avatars.mds.yandex.net/get-adfox-content/2367573/220415_market_1878627_5196067_1.c082788be90caac8388026c23bcf713b.jpg/optimize.webp" alt="">-->
+<!--			</div>-->
+<!--		</div>-->
+    </div>
+
+{% endblock content %}
+
+{% block js %}
+    let line = document.querySelector('footer')
+    // console.log(line)
+    var page = 1;
+    var nextPage = true
+    var oneTime;
+    document.addEventListener('scroll',() => {
+        if(document.documentElement.scrollTop > (line.offsetTop - window.innerHeight + 100 )) {
+            clearTimeout(oneTime)
+            oneTime = setTimeout(()=> {
+                if (nextPage) {
+                    $(document).ready(function () {
+                        page += 1
+                        $.ajax({
+                            data: {
+                                "page": page
+                            },
+                            url: "{% url 'home' %}",
+                            success: function (response) {
+                                console.log('респонс',response)
+                                if (nextPage) {
+                                    console.log("Название Категорий", response.tovari)
+
+                                    for (let i in response.tovari) { ///Название Категорий
+                                        let complektTovarov = document.createElement('div')
+                                        complektTovarov.className = 'complekt-tovarov'
+                                        let h1 = document.createElement('h1')
+                                        h1.innerText = i;
+                                        complektTovarov.append(h1)
+                                        let tovari = document.createElement('div')
+                                        tovari.className = 'tovari'
+                                        complektTovarov.append(tovari)
+                                        console.log("ТОвары в категории",response.tovari[i])
+                                        for (let j of response.tovari[i]) { /// ТОвары в категории
+                                            let tovar = j.fields
+                                            console.log(tovar)
+                                            let red =''
+                                            let vkorzine;
+                                            let word;
+                                            if (likes.includes(j.pk)) {
+                                                red = 'red'
+                                            } else {
+                                                red = ''
+                                            }
+
+                                            if (cart_list.includes(j.pk)){
+                                                vkorzine = 'vkorzine'
+                                                word ='В корзине'
+                                            } else {
+                                                vkorzine = ''
+                                                word ='Добавить в корзину'
+
+                                            }
+                                            let a = `<div class="qlavniy-tovar">
+                                                         <div class="izbranniy-tovar">
+                                                            <label for="${j.pk}" class="${red}">
+                                                                <i class="fa-solid fa-heart ${j.pk}"></i>
+                                                            </label>
+                                                            <input type="checkbox" name="favorite" id="${j.pk}" style="display: none" class="heart">
+                                                         </div>
+                                                         <a href="/post-tovar/${tovar.slug}">
+                                                             <div class="qlavniy-tovar-img"><img src="/media/${tovar.photo_main}" alt=""></div>
+                                                             <span class="tovar-info">
+                                                                 <div class="chena">${tovar.price} ₼</div>
+                                                                 <div class="reyting">
+                                                                    <div class="zvezda">звезды</div>
+                                                                    <div class="chislo-ochenik">50</div>
+                                                                 </div>
+                                                                 <div class="tovar-name">${tovar.title}</div>
+                                                                 <div class="rekomenduyemost">86% рекомендуют</div>
+                                                             </span>
+                                                         </a>
+                                                         <div class="button "><input type="button" class="${vkorzine}" value="${word}"></div>
+                                                     </div>`
+                                            tovari.innerHTML += a
+                                            // console.log("ТОвары ",j)
+                                            // console.log(j.fields)
+                                        }
+
+                                        document.querySelector('.content main').append(complektTovarov)
+                                        console.log('index')
+                                        nextPage = response.has_next
+                                    }
+                                }
+                                // let tovari = document.createElement('div')
+                                // tovari.className = 'tovari'
+                                // let qlavniyTovar = document.createElement('div')
+                                // qlavniyTovar.className = 'qlavniy-tovar'
+                                // complektTovarov.append(h1)
+                                // let space = document.createElement('div')
+                                // let izbranniTtovar = document.createElement('div')
+                                // let a = document.createElement('a')
+                                // let button = document.createElement('div')
+                                // complektTovarov.className = 'complekt-tovarov'
+
+                                // space.className = 'space'
+                                // qlavniyTovar.className = 'qlavniy-tovar'
+                                // izbranniTtovar.className = 'izbranniy-tovar'
+                                // a.href = ''
+                                // button.className = 'button'
+
+delLikes()
+setLikes()
+DelCards()
+setCards()
+                            },
+                            error: function (response) {
+                                console.log(response.responseJSON.errors)
+                            }
+                        });
+                        return false;
+                    })
+                }
+            }, 1000)
+        }
+    });
+
+{% endblock js %}
+
+{% block new_script %}
+{% endblock new_script %}

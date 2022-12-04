@@ -1,0 +1,51 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'homepage/css/style-new.css' %}">
+    <link rel="icon" href="{% static 'homepage/img/icon-of-site.webp' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3cb2bc27fe.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+</head>
+<body class="voyti-body">
+    <header class="voyti-header">
+        <div class="logo">
+            <div class="logo-icon"></div>
+            <div class="logo-text"><a href="{% url 'home' %}">Find.az</a></div>
+        </div>
+    </header>
+    <main class="main-of-voyti">
+        <div class="voyti-content">
+            <div class="log-in">
+                <h4>Войти</h4>
+                <form class="log-in-label" method="post">
+                    {% csrf_token %}
+                    <p>{{ form.non_field_errors }}</p>
+                    <div class="log-in-contaner">
+                       <i class="fas fa-at"></i>
+                        {{ form.username }}
+                        {{ form.username.errors }}
+<!--                        <input type="text" placeholder="Log in">-->
+                    </div>
+                    <div class="password-contaner">
+                        <i class="fas fa-unlock"></i>
+                        {{ form.password }}
+                        {{ form.password.errors }}
+<!--                        <input type="password" placeholder="Password">-->
+                    </div>
+                    <input type="submit" value="Войти" >
+                    <p><a href="/password_reset">Забыл пароль</a> <br>
+                    Нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a></p>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer class="voyti-footer">
+    </footer>
+    <script src="{% static 'homepage/js/script.js' %}"></script>
+</body>
+</html>

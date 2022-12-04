@@ -1,0 +1,228 @@
+{% extends 'homepage/layout.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+    <div class="filter-content">
+        <h2>{{ tovari.0.podpodcat.name }}</h2>
+        <div class="filter-and-content">
+            <div class="filter-filter">
+                {% for el in list_pc %}
+                    <a href="{{ el.get_absolute_url }}"><p>{{ el.name }}</p></a>
+                {% endfor %}
+            </div>
+            <div class="filter-main-content">
+                <div class="filter-content-header">
+                    <ul>
+                        <li>По популярности</li>
+                        <li>по цене</li>
+                        <li>по рейтингу</li>
+                        <li>по скидке</li>
+                    </ul>
+                </div>
+                <div class="tovari">
+                    {% for tovar in tovari %}
+                    <div class="qlavniy-tovar">
+						<div class="izbranniy-tovar">
+                            {% if request.user.is_authenticated %}
+                                <label for="{{ tovar.pk }}" class="{% if tovar in fav_tovari %}red{% endif %}">
+                                    <i class="fa-solid fa-heart {{ tovar.pk }}"></i>
+                                </label>
+                                <input name="favorite" style="display: none" class='heart' type="checkbox" id="{{ tovar.pk }}">
+                            {% else %}
+                                    <i class="fa-solid fa-heart"></i>
+                            {% endif %}
+                        </div>
+						<a href="{{ tovar.get_absolute_url }}">
+							<div class="qlavniy-tovar-img"><img src="{{ tovar.photo_main.url }}" alt=""></div>
+							<span class="tovar-info">
+                                <div class="chena">{{ tovar.price }} ₼</div>
+                                <div class="reyting">
+                                    <div class="zvezda">звезды</div>
+                                    <div class="chislo-ochenik">{{ tovar.rating }}</div>
+                                </div>
+                                <div class="tovar-name">{{ tovar.title|truncatewords:10 }}</div>
+                                <div class="rekomenduyemost">86% рекомендуют</div>
+						    </span>
+						</a>
+						{% if tovar in cart_tovari %}
+						    <div class="button"><input type="button" value="В корзине" class="vkorzine"></div>
+                        {% else %}
+						    <div class="button"><input type="button" value="Добавить в корзину"></div>
+                        {% endif %}
+					</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block js %}
+
+        function translit(word){
+            let answer = '';
+            let converter = {
+                'а': 'a',    'б': 'b',    'в': 'v',    'г': 'g',    'д': 'd',
+                'е': 'e',    'ё': 'e',    'ж': 'zh',   'з': 'z',    'и': 'i',
+                'й': 'y',    'к': 'k',    'л': 'l',    'м': 'm',    'н': 'n',
+                'о': 'o',    'п': 'p',    'р': 'r',    'с': 's',    'т': 't',
+                'у': 'u',    'ф': 'f',    'х': 'h',    'ц': 'c',    'ч': 'ch',
+                'ш': 'sh',   'щ': 'sch',  'ь': '',     'ы': 'y',    'ъ': '',
+                'э': 'e',    'ю': 'yu',   'я': 'ya',
+
+                'А': 'A',    'Б': 'B',    'В': 'V',    'Г': 'G',    'Д': 'D',
+                'Е': 'E',    'Ё': 'E',    'Ж': 'Zh',   'З': 'Z',    'И': 'I',
+                'Й': 'Y',    'К': 'K',    'Л': 'L',    'М': 'M',    'Н': 'N',
+                'О': 'O',    'П': 'P',    'Р': 'R',    'С': 'S',    'Т': 'T',
+                'У': 'U',    'Ф': 'F',    'Х': 'H',    'Ц': 'C',    'Ч': 'Ch',
+                'Ш': 'Sh',   'Щ': 'Sch',  'Ь': '',     'Ы': 'Y',    'Ъ': '',
+                'Э': 'E',    'Ю': 'Yu',   'Я': 'Ya',   ' ': ''
+            };
+
+            for (let i = 0; i < word.length; ++i ) {
+                if (converter[word[i]] == undefined){
+                    answer += word[i];
+                } else {
+                    answer += converter[word[i]];
+                }
+            }
+
+            return answer;
+        }
+        let properties = {% autoescape off %}{{ list_of_properties }}{% endautoescape %}
+        for (let i of Object.keys(properties)){
+            let div1 = document.createElement('div')
+            let p = document.createElement('p')
+            p.innerText = i
+            div1.append(p)
+            for (let j of properties[i]) {
+                let div2 = document.createElement('div')
+                let input = document.createElement('input')
+                let label = document.createElement('label')
+                input.id = `${translit(i)}${translit(j)}`
+                input.type = 'checkbox'
+                label.setAttribute('for', `${translit(i)}${translit(j)}`)
+                label.innerText = j
+                div2.append(input)
+                div2.append(label)
+                div1.append(div2)
+            }
+            console.log()
+            document.querySelector('.filter-filter').append(div1)
+        }
+        function artOfTovar(response) {
+            for (let i of response) {
+                let tovar = i.fields
+                let red =''
+                let vkorzine;
+                let word
+                if (likes.includes(i.pk)) {
+                    red = 'red'
+                } else {
+                    red = ''
+                }
+
+                    console.log(cart_list)
+                if (cart_list.includes(i.pk)){
+                    vkorzine = 'vkorzine'
+                    word ='В корзине'
+                } else {
+                    vkorzine = ''
+                    word ='Добавить в корзину'
+
+                }
+                console.log(vkorzine)
+                console.log(red)
+                let htmltovar =`<div class="qlavniy-tovar">
+                                     <div class="izbranniy-tovar">
+                                        <label for="${i.pk}" class="${red}">
+                                            <i class="fa-solid fa-heart ${i.pk}"></i>
+                                        </label>
+                                        <input type="checkbox" name="favorite" id="${i.pk}" style="display: none" class="heart">
+                                     </div>
+                                     <a href="/post-tovar/${tovar.slug}">
+                                         <div class="qlavniy-tovar-img"><img src="/media/${tovar.photo_main}" alt=""></div>
+                                         <span class="tovar-info">
+                                             <div class="chena">${tovar.price} ₼</div>
+                                             <div class="reyting">
+                                                <div class="zvezda">звезды</div>
+                                                <div class="chislo-ochenik">50</div>
+                                             </div>
+                                             <div class="tovar-name">${tovar.title}</div>
+                                             <div class="rekomenduyemost">86% рекомендуют</div>
+                                         </span>
+                                     </a>
+                                     <div class="button "><input type="button" class="${vkorzine}" value="${word}"></div>
+                                 </div>`
+
+                document.querySelector('.filter-main-content .tovari').innerHTML += htmltovar
+                setLikes()
+            }
+        }
+
+        let chekboxes = document.querySelectorAll('.filter-filter input[type=checkbox]')
+        chekboxes.forEach(chekbox => {
+            chekbox.addEventListener('click', (event)=>{
+                let chekboxes2 = document.querySelectorAll('.filter-filter input[type=checkbox]')
+                var dic = {}
+                for (let i of chekboxes2) {
+                    if (i.checked === true) {
+                        let papa = translit(i.parentElement.parentElement.querySelector('p').innerText)
+                        if (papa in dic) {
+                            dic[papa].push(i.parentElement.querySelector('label').innerText)
+                        } else {
+                            dic[papa] = [i.parentElement.querySelector('label').innerText]
+                        }
+                    }
+                }
+                if (Object.keys(dic).length) {
+                    console.log(dic)
+                    $(document).ready(function () {
+                        $.ajax({
+                            data: {"property": JSON.stringify(dic)},
+                            url: "{% url 'filter_of_tovar' %}",
+                            success: function (response) {
+                                console.log(response)
+                                let tovariInFilter = document.querySelectorAll('.filter-main-content .qlavniy-tovar')
+                                for (let i of tovariInFilter) {
+                                    i.remove()
+                                }
+                                artOfTovar(response)
+                            },
+                            error: function (response) {
+                                console.log(response.responseJSON.errors)
+                            }
+                        });
+                        return false;
+                    })
+                } else {
+                    console.log(dic)
+                    $(document).ready(function () {
+                        $.ajax({
+                            data: {"property": '{{ tovari.0.podpodcat.slug }}'},
+                            url: "{% url 'filter_of_tovar' %}",
+                            success: function (response) {
+                                console.log(response)
+                                let tovariInFilter = document.querySelectorAll('.filter-main-content .qlavniy-tovar')
+                                for (let i of tovariInFilter) {
+                                    i.remove()
+                                }
+                                artOfTovar(response)
+                            },
+                            error: function (response) {
+                                console.log(response.responseJSON.errors)
+                            }
+                        });
+                        return false;
+                    })
+                }
+            })
+        })
+
+
+
+
+{% endblock js %}
